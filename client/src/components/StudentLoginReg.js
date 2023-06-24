@@ -32,7 +32,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
         console.log("new registered user", res.data)
         setUser(res.data._id) //put loggedUser in state
         setLogged(true) //put logged user in state
-        navigate("/StudentViewList") //navigate to pet dashboard
+        navigate("/StudentViewList")
       })
       .catch(err => {
         console.log("Reg errors", err);

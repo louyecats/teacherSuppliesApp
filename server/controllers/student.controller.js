@@ -17,9 +17,9 @@ module.exports = {
             //instead of creating a new student right away, want to initiate a web token first
             const newStudent = await Student.create(req.body)
             //the info we want to save inside student token is their id and email, any time use token have to pass in the secret variable declared above holding secret key, you can also pass in when it expires
-            const userToken = jwt.sign({ _id: newStudent._id, email: newStudent.email, firstName: newStudent.firstName, level: 'student'}, secret, { expiresIn: "2h" });
+            const userToken = jwt.sign({ _id: newStudent._id, email: newStudent.email, firstName: newStudent.firstName, level: "student"}, secret, { expiresIn: "2h" });
             //create the new cookie that is called userToken that holds our webtoken secret, the httpOnly is based off request, response message
-            res.cookie("usertoken", userToken, { httpOnly: true }).json({
+            res.cookie("userToken", userToken, { httpOnly: true }).json({
                 message: "Successfully registered a new student!",
                 student: newStudent
             });
