@@ -61,8 +61,8 @@ module.exports = {
     loggedUser: async (req, res) =>{
         // console.log("I'm here!")
         try {
-            // console.log(req.cookies.usertoken)
-            const user = jwt.verify(req.cookies.usertoken, secret);
+            //console.log("loggedUser cookies token", req.cookies.userToken)
+            const user = jwt.verify(req.cookies.userToken, secret);
             //console.log("user", user)
             // const currentUser = await Model.findOne({_id: user._id});
             // console.log("loggedUser", currentUser);
@@ -73,7 +73,7 @@ module.exports = {
     },
     //logout an existing teacher
     logout: (req, res) => {
-        res.clearCookie('usertoken');
-        res.sendStatus(200);
+        res.clearCookie('userToken');
+        res.sendStatus(200).json({message: "logged out teacher successfully"});
     }
 }

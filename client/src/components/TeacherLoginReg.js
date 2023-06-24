@@ -66,8 +66,8 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
     //on submit, do an axios post request to the route, passing in the form data, now since we have cookies, we need to also pass {withcredentials: true}
     axios.post("http://localhost:8000/teacher/login", loginInfo, { withCredentials: true })
       .then(res => {
-        console.log("logged in res.data._id", res.data._id);
-        setUser(res.data.user._id)
+        console.log("logged in res.data", res.data);
+        setUser(res.data.teacher._id)
         //console.log("res.data.user.email",res.data.user.email);
         setLogged(true)
         //put logged user in state

@@ -24,7 +24,7 @@ function App() {
         <Routes>
           <Route element={<ChooseTeacherStudent />} path="/" default />
           <Route element={<TeacherLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherLoginReg" default />
-          <Route element={<TeacherDashboard />} path="/TeacherDashboard" default />
+          <Route element={<TeacherDashboard user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherDashboard" default />
           <Route element={<TeacherCreateList />} path="/TeacherCreateList" default />
           <Route element={<TeacherViewList />} path="/TeacherViewList" default />
           <Route element={<TeacherEditList />} path="/TeacherEditList" default />
