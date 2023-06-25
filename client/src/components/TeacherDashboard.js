@@ -11,7 +11,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
         console.log("logged user" + JSON.stringify(res.data))
-        console.log("res.data.level",res.data.level)
+        //console.log("res.data.level", res.data.level)
         //set logged in user in  state
         setUser(res.data);
         if (res.data.level !== "teacher") {
@@ -19,8 +19,8 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           navigate('/')
         } else {
           console.log("teacher logged in")
-          }
-        })
+        }
+      })
       .catch(err => {
         console.log('currentuser error', err)
         setUser("")
@@ -51,9 +51,8 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
 
       <h2 className="mt-3">Welcome {user.firstName}</h2>
       <div className="col-8 mx-auto bg-info p-3 m-4 rounded">
-        <button className="btn btn-dark d-flex mx-auto" onClick={viewList}>View List</button>
-        <button className="btn btn-dark d-flex mx-auto mt-3" onClick={createList} >Create List</button>
-
+        <button className="btn btn-light d-flex mx-auto" onClick={viewList}>View List</button>
+        <button className="btn btn-light d-flex mx-auto mt-3" onClick={createList} >Create List</button>
       </div>
     </div>
   )

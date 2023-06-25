@@ -36,7 +36,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
       })
       .catch(err => {
         console.log("Reg errors", err);
-        const errorResponse = err.response.data.errors;
+        const errorResponse = err.response.data;
         const errorArr = [];
         for (const key of Object.keys(errorResponse)) {
           errorArr.push(errorResponse[key].message)
@@ -84,7 +84,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
       <h2 className="text-start offset-2">Register</h2>
       <div className="col-8 mx-auto bg-info p-3 m-4 rounded">
         <form action="" className="col" onSubmit={registerHandler}>
-          {/* {errorsReg.map((err, index) => <p className="text-danger" key={index}>{err}</p>)} */}
+          {errorsReg.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
 
           <div className="form-group">
             <label htmlFor="firstName">First Name:</label>
@@ -113,7 +113,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
       <h2 className="text-start offset-2">Login</h2>
       <div className="col-8 mx-auto bg-info p-3 m-4 rounded">
         <form action="" className="col" onSubmit={loginHandler}>
-          {/* {errorsLogin && <p className="fst-italic text-danger">{errorsLogin}</p>} */}
+          {errorsLogin && <p className="fst-italic text-danger">{errorsLogin}</p>}
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input type="text" className="form-control" name="email" id="email" onChange={logChangeHandler}></input>

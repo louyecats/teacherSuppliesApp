@@ -137,7 +137,7 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
             <label htmlFor="password">Password:</label>
             <input type="password" className="form-control" name="password" id="password" onChange={logChangeHandler}></input>
           </div>
-          <button className="btn btn-dark mt-3 col-3">login</button>
+          <button className="btn btn-dark mt-3">login</button>
         </form>
       </div>
     </div>

@@ -37,7 +37,7 @@ module.exports = {
                 const passwordMatch = await bcrypt.compare(req.body.password, teacher.password);
                 if (passwordMatch) { //if passwords match, create web token called userToken, that holds the id and email, must pass in the secret variable declared above holding secret key, pass in when expries
                     const userToken = jwt.sign({ _id: teacher._id, email: teacher.email, firstName: teacher.firstName, level: "teacher" }, secret, { expiresIn: "2h" });
-                    res.cookie("userToken", userToken, secret, { httpOnly: true }).json({
+                    res.cookie("usertoken", userToken, secret, { httpOnly: true }).json({
                         message: "Successfully logged in a teacher!",
                         teacher: teacher
                     });
@@ -61,9 +61,9 @@ module.exports = {
     loggedUser: async (req, res) =>{
         // console.log("I'm here!")
         try {
-            //console.log("loggedUser cookies token", req.cookies.userToken)
-            const user = jwt.verify(req.cookies.userToken, secret);
-            //console.log("user", user)
+            //console.log("loggedUser cookies token", req.cookies.usertoken)
+            const user = jwt.verify(req.cookies.usertoken, secret);
+            console.log("user", user)
             // const currentUser = await Model.findOne({_id: user._id});
             // console.log("loggedUser", currentUser);
             res.json(user);
@@ -73,7 +73,7 @@ module.exports = {
     },
     //logout an existing teacher
     logout: (req, res) => {
-        res.clearCookie('userToken');
+        res.clearCookie('usertoken');
         res.sendStatus(200).json({message: "logged out teacher successfully"});
     }
 }
