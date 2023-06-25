@@ -36,7 +36,7 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
         navigate("/TeacherDashboard") //navigate to pet dashboard
       })
       .catch(err => {
-        console.log("Reg errors", err.response.data.errors);
+        console.log("Reg errors", err);
         const errorResponse = err.response.data.errors;
         const errorArr = [];
         for (const key of Object.keys(errorResponse)) {
