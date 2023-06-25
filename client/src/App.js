@@ -26,10 +26,10 @@ function App() {
           <Route element={<TeacherLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherLoginReg" default />
           <Route element={<TeacherDashboard user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherDashboard" default />
           <Route element={<TeacherCreateList />} path="/TeacherCreateList" default />
-          <Route element={<TeacherViewList />} path="/TeacherViewList" default />
+          <Route element={<TeacherViewList user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherViewList" default />
           <Route element={<TeacherEditList />} path="/TeacherEditList" default />
           <Route element={<StudentLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/StudentLoginReg" default />
-          <Route element={<StudentViewList />} path="/StudentViewList" default />
+          <Route element={<StudentViewList user={user} setUser={setUser} setLogged={setLogged}/>} path="/StudentViewList" default />
 
         </Routes>
       </BrowserRouter>

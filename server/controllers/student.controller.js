@@ -19,7 +19,7 @@ module.exports = {
             //the info we want to save inside student token is their id and email, any time use token have to pass in the secret variable declared above holding secret key, you can also pass in when it expires
             const userToken = jwt.sign({ _id: newStudent._id, email: newStudent.email, firstName: newStudent.firstName, level: "student"}, secret, { expiresIn: "2h" });
             //create the new cookie that is called userToken that holds our webtoken secret, the httpOnly is based off request, response message
-            res.cookie("userToken", userToken, { httpOnly: true }).json({
+            res.cookie("usertoken", userToken, { httpOnly: true }).json({
                 message: "Successfully registered a new student!",
                 student: newStudent
             });
@@ -37,7 +37,7 @@ module.exports = {
                 const passwordMatch = await bcrypt.compare(req.body.password, student.password);
                 if (passwordMatch) { //if passwords match, create web token called userToken, that holds the id and email, must pass in the secret variable declared above holding secret key, pass in when expries
                     const userToken = jwt.sign({ _id: student._id, email: student.email, firstName: student.firstName, level: 'student' }, secret, { expiresIn: "2h" });
-                    res.cookie("userToken", userToken, secret, { httpOnly: true }).json({
+                    res.cookie("usertoken", userToken, secret, { httpOnly: true }).json({
                         message: "Successfully logged in a student!",
                         student: student
                     });
@@ -55,6 +55,20 @@ module.exports = {
         }
         catch (err) {
             return res.json(err);
+        }
+    },
+    //logged in user
+    loggedUser: async (req, res) =>{
+        // console.log("I'm here!")
+        try {
+            //console.log("loggedUser cookies token", req.cookies.usertoken)
+            const user = jwt.verify(req.cookies.usertoken, secret);
+            console.log("user", user)
+            // const currentUser = await Model.findOne({_id: user._id});
+            // console.log("loggedUser", currentUser);
+            res.json(user);
+        } catch (error) {
+            res.status(400).json({errors: 'error loggedUser'})
         }
     },
     //logout an existing student
