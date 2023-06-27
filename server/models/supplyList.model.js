@@ -20,7 +20,7 @@ const SupplyListSchema = new mongoose.Schema({
         //custom validations for the backend
 
     },
-    class: {
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Teacher',
     }
