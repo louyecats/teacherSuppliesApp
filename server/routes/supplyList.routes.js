@@ -10,4 +10,5 @@ module.exports = app => {
     app.patch('/api/supplyList/update', SupplyListController.updateSupplyList);
     app.delete('/api/supplyList/delete/:id', SupplyListController.deleteSupplyList);
     app.get('/currentuser', TeacherController.loggedUser);
+
 }

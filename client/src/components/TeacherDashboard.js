@@ -10,7 +10,10 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
   useEffect(() => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
+
+
         // console.log("logged user" + JSON.stringify(res.data))
+
         //console.log("res.data.level", res.data.level)
         //set logged in user in  state
         setUser(res.data);
@@ -18,7 +21,11 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           console.log("teacher not logged in")
           navigate('/')
         } else {
+
+
           // console.log("teacher logged in")
+
+
         }
       })
       .catch(err => {
@@ -47,7 +54,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
     axios.get("http://localhost:8000/api/supplyList/readAll")
       // This needs to match the the axios route to call the getAllProducts function
       .then((res) => {
-        //console.log(res.data);
+        console.log(res.data);
         setState(res.data);
         navigate('/TeacherDashboard')
       })
@@ -65,6 +72,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
         <h1 className="col text-start">School Supplies</h1>
         <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
       </div>
+
 
       {/* ------- MAIN -------*/}
       {user && user.firstName? 
@@ -92,6 +100,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
 
       </table>
         <button className="btn btn-dark text-light d-flex mx-auto mt-3" onClick={createList} >Create New List</button>
+
     </div>
   )
 }

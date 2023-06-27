@@ -18,4 +18,5 @@ require('./routes/teacher.routes')(app); //comment out til later
 require('./routes/student.routes')(app);
 require('./routes/supplyList.routes')(app); 
 
+
 app.listen(port, () => console.log(`Listening on port: ${port}`));
