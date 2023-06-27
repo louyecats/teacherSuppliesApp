@@ -41,7 +41,7 @@ const StudentViewList = ({ user, setUser, setLogged }) => {
   }, []);
 
   //get list from teacher's ID selected on form
-
+  
   const logoutHandler = (e) => {
     e.preventDefault();
     axios.post("http://localhost:8000/student/logout", {}, { withCredentials: true })

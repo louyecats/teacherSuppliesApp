@@ -10,10 +10,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
   useEffect(() => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
-
-
         // console.log("logged user" + JSON.stringify(res.data))
-
         //console.log("res.data.level", res.data.level)
         //set logged in user in  state
         setUser(res.data);
@@ -21,15 +18,11 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           console.log("teacher not logged in")
           navigate('/')
         } else {
-
-
-          // console.log("teacher logged in")
-
-
+          console.log("teacher logged in")
         }
       })
       .catch(err => {
-        // console.log('currentuser error', err)
+        console.log('currentuser error', err)
         setUser("")
       });
   }, [])
@@ -54,12 +47,12 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
     axios.get("http://localhost:8000/api/supplyList/readAll", { withCredentials: true })
       // This needs to match the the axios route to call the getAllProducts function
       .then((res) => {
-        console.log(res.data);
+        console.log("readAllSupplyList", res.data);
         setState(res.data);
         navigate('/TeacherDashboard')
       })
       .catch((err) => {
-        console.log(err);
+        console.log("readAllSupplyList", err);
       })
   }, [navigate]);
 
@@ -87,10 +80,10 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           </thead>
           <tbody>
             {state.map((supplyList) => {
-              return (
+              return ( 
                 <tr key={supplyList._id}>
                   <td>
-                    <Link to={`/readOne/${supplyList._id}`} className="link-light"> {supplyList.SupplyListName} </Link>
+                    <Link to={`/supplyList/readOne/${supplyList._id}`} className="link-light"> {supplyList.SupplyListName} </Link>
                   </td>
                   {/* Link to needs to have the route! and then the variable is linked */}
                 </tr>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,6 +17,27 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
     password: "",
     confirmPassword: ""
   })
+
+    //get logged in user w/token credentials
+    //so if user is logged in, this page navigates forward
+    useEffect(() => {
+      axios.get("http://localhost:8000/currentuser", { withCredentials: true })
+          .then(res => {
+              if (res.data.level === "student") {
+                  navigate('/StudentViewList')
+                  console.log("student logged in")
+              } else if (res.data.level === "teacher") {
+                  navigate('/TeacherDashboard')
+                  console.log("teacher logged in")
+              } else {
+                  console.log("teacher or student not logged in")
+              }
+          })
+          .catch(err => {
+              console.log('currentuser error', err)
+              setUser("")
+          });
+  }, [])
 
   const regChangeHandler = (e) => {
     setUserInfo({
@@ -63,10 +84,6 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
 
   const loginHandler = (e) => {
     e.preventDefault()
-    if (!user) {
-      navigate('/')
-      // if user logged in, continue
-    } else {
     //on submit, do an axios post request to the route, passing in the form data, now since we have cookies, we need to also pass {withcredentials: true}
     axios.post("http://localhost:8000/teacher/login", loginInfo, { withCredentials: true })
       .then(res => {
@@ -81,8 +98,7 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
         console.log("Reg errors", err.response.data);
         const errorResponse = err.response.data.message;
         setErrorsLogin(errorResponse)
-      })
-    };
+      });
   }
 
   return (

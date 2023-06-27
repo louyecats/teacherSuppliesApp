@@ -43,13 +43,13 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
   }, [])
 
   const onSubmitHandler = (e) => {
+    //prevent default behavior of the submit
     e.preventDefault();
     // if no user logged in, redirect
     if (!user) {
       navigate('/')
       // if user logged in, continue
     } else {
-      //prevent default behavior of the submit
       //make a post request to create a new supplyList
       console.log("---------", supplyList)
       axios.post('http://localhost:8000/api/supplyList/create', supplyList, { withCredentials: true })
