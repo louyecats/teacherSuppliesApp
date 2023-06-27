@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const port = 8000;
 const cookieParser = require('cookie-parser'); //to use cookies in express for JWT
+const productRoutes = require('./routes/products.routes'); // to use API !! 
 require('dotenv').config(); //to access and use process.env
 require('./config/mongoose.config');
 
@@ -12,6 +13,7 @@ app.use(express.json(), express.urlencoded({extended:true}));
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(cookieParser()); //to use cookies in express for JWT
 
+app.use('/products', productRoutes) //    to use API
 
 //bring in routes to server & give app we imported access to them
 require('./routes/teacher.routes')(app); //comment out til later
