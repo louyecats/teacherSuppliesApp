@@ -63,6 +63,10 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
 
   const loginHandler = (e) => {
     e.preventDefault()
+    if (!user) {
+      navigate('/')
+      // if user logged in, continue
+    } else {
     //on submit, do an axios post request to the route, passing in the form data, now since we have cookies, we need to also pass {withcredentials: true}
     axios.post("http://localhost:8000/teacher/login", loginInfo, { withCredentials: true })
       .then(res => {
@@ -77,15 +81,18 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
         console.log("Reg errors", err.response.data);
         const errorResponse = err.response.data.message;
         setErrorsLogin(errorResponse)
-      });
+      })
+    };
   }
 
   return (
     <div className="mx-auto m-5">
       <h1>Teacher</h1>
       <h2 className="text-start offset-2">Register</h2>
+
       <div className="col-8 mx-auto bg-info p-3 m-4 rounded">
         <form action="" className="col" onSubmit={registerHandler}>
+          
           {errorsReg.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
 
           <div className="form-group">
@@ -137,7 +144,7 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
             <label htmlFor="password">Password:</label>
             <input type="password" className="form-control" name="password" id="password" onChange={logChangeHandler}></input>
           </div>
-          <button className="btn btn-dark mt-3">login</button>
+          <button className="btn btn-dark mt-3">Login</button>
         </form>
       </div>
     </div>

@@ -10,7 +10,7 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
         //console.log("logged user" + JSON.stringify(res.data))
-       // console.log("res.data.level", res.data.level)
+        //console.log("res.data.level", res.data.level)
         //set logged in user in  state
         setUser(res.data);
         if (res.data.level !== "teacher") {
@@ -24,7 +24,7 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
         console.log('currentuser error', err)
         setUser("")
       });
-  }, [user])
+  }, [])
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -52,7 +52,11 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
       </div>
 
       <div className="col mx-auto bg-info p-3 m-4 rounded">
-        <h2 className="mt-3 text-start ">{user.firstName}'s List:</h2>
+      {user && user.firstName ?
+        <h2 className="mt-3 text-start">{user.firstName}'s List:</h2>
+        :
+        <h2 className="mt-3">Supplies List:</h2>
+      }
         <ul>
           <li className="text-white text-start">Supplies go here</li>
         </ul>

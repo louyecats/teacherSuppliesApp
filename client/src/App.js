@@ -23,13 +23,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<ChooseTeacherStudent />} path="/" default />
-          <Route element={<TeacherLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherLoginReg" default />
-          <Route element={<TeacherDashboard user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherDashboard" default />
-          <Route element={<TeacherCreateList />} path="/TeacherCreateList" default />
-          <Route element={<TeacherViewList user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherViewList" default />
+          <Route element={<TeacherLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherLoginReg" />
+          <Route element={<TeacherDashboard user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherDashboard"  />
+          <Route element={<TeacherCreateList user={user} setUser={setUser} setLogged={setLogged} />} path="/TeacherCreateList"  />
+          <Route element={<TeacherViewList user={user} setUser={setUser} setLogged={setLogged}/>} path="/TeacherViewList"  />
           <Route element={<TeacherEditList />} path="/TeacherEditList" default />
-          <Route element={<StudentLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/StudentLoginReg" default />
-          <Route element={<StudentViewList user={user} setUser={setUser} setLogged={setLogged}/>} path="/StudentViewList" default />
+          <Route element={<StudentLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/StudentLoginReg"  />
+          <Route element={<StudentViewList user={user} setUser={setUser} setLogged={setLogged}/>} path="/StudentViewList"  />
 
         </Routes>
       </BrowserRouter>
