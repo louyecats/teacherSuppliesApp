@@ -10,7 +10,9 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
   useEffect(() => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
+
         // console.log("logged user" + JSON.stringify(res.data))
+
         //console.log("res.data.level", res.data.level)
         //set logged in user in  state
         setUser(res.data);
@@ -18,14 +20,17 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           console.log("teacher not logged in")
           navigate('/')
         } else {
+
           // console.log("teacher logged in")
+
+
         }
       })
       .catch(err => {
         // console.log('currentuser error', err)
         setUser("")
       });
-  }, [])
+  }, [user])
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -61,11 +66,12 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
   const viewList = (e) => { navigate("/TeacherViewList") }
 
   return (
-    <div className="mx-auto m-5">
+    <div className="mx-auto col-8 m-5">
       <div className="row">
-        <h1 className="col text-start offset-2">School Supplies</h1>
-        <button className="col-1 btn btn-dark" onClick={logoutHandler}>Logout</button>
+        <h1 className="col text-start">School Supplies</h1>
+        <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
       </div>
+
 
       {/* ------- MAIN -------*/}
 
@@ -92,6 +98,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
       </table>
       <button className="btn btn-dark text-light d-flex mx-auto" onClick={viewList}>View List</button>
         <button className="btn btn-dark text-light d-flex mx-auto mt-3" onClick={createList} >Create List</button>
+
     </div>
   )
 }

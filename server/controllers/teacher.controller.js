@@ -63,7 +63,9 @@ module.exports = {
         try {
             //console.log("loggedUser cookies token", req.cookies.usertoken)
             const user = jwt.verify(req.cookies.usertoken, secret);
+
             // console.log("user", user)
+
             // const currentUser = await Model.findOne({_id: user._id});
             // console.log("loggedUser", currentUser);
             res.json(user);

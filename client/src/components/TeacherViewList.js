@@ -9,22 +9,22 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
   useEffect(() => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
-        console.log("logged user" + JSON.stringify(res.data))
-        console.log("res.data.level", res.data.level)
+        //console.log("logged user" + JSON.stringify(res.data))
+       // console.log("res.data.level", res.data.level)
         //set logged in user in  state
         setUser(res.data);
         if (res.data.level !== "teacher") {
           console.log("teacher not logged in")
           navigate('/')
         } else {
-          console.log("teacher logged in")
+         // console.log("teacher logged in")
         }
       })
       .catch(err => {
         console.log('currentuser error', err)
         setUser("")
       });
-  }, [])
+  }, [user])
 
   const logoutHandler = (e) => {
     e.preventDefault();
