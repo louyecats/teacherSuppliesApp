@@ -18,6 +18,11 @@ const SupplyListSchema = new mongoose.Schema({
         minlength: [2, "Items must be at least 2 characters long."],
         maxlength: [255, "Items cannot be more than 255 characters long."]
         //custom validations for the backend
+
+    },
+    class: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Teacher',
     }
 
 },
@@ -25,5 +30,11 @@ const SupplyListSchema = new mongoose.Schema({
 
 
 
-
 module.exports = mongoose.model('SupplyList', SupplyListSchema);
+
+/* TEACHER JOIN
+createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Teacher',
+}
+*/

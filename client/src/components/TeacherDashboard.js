@@ -11,6 +11,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
 
+
         // console.log("logged user" + JSON.stringify(res.data))
 
         //console.log("res.data.level", res.data.level)
@@ -21,6 +22,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           navigate('/')
         } else {
 
+
           // console.log("teacher logged in")
 
 
@@ -30,7 +32,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
         // console.log('currentuser error', err)
         setUser("")
       });
-  }, [user])
+  }, [])
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -63,10 +65,9 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
 
 
   const createList = (e) => { navigate("/TeacherCreateList") }
-  const viewList = (e) => { navigate("/TeacherViewList") }
 
   return (
-    <div className="mx-auto col-8 m-5">
+    <div className="mx-auto m-5 col-8">
       <div className="row">
         <h1 className="col text-start">School Supplies</h1>
         <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
@@ -74,12 +75,14 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
 
 
       {/* ------- MAIN -------*/}
-
-      {/* <h2 className="mt-3">Welcome {user.firstName}</h2> */}
-      <table className="table table-bordered mx-auto col-md-8 text-dark mx-auto bg-info col-8 m-5 rounded">
+      {user && user.firstName? 
+      <h2 className="mt-3">Welcome {user.firstName}</h2>
+      :
+      <h2 className="mt-3">Welcome!</h2>} 
+      <table className="table table-bordered mx-auto text-dark mx-auto bg-info col-8 m-5 rounded">
           <thead>
             <tr>
-              <th>Supply Lists</th>
+              <th className="h3">Supply Lists:</th>
             </tr>
           </thead>
           <tbody>
@@ -96,8 +99,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           </tbody>
 
       </table>
-      <button className="btn btn-dark text-light d-flex mx-auto" onClick={viewList}>View List</button>
-        <button className="btn btn-dark text-light d-flex mx-auto mt-3" onClick={createList} >Create List</button>
+        <button className="btn btn-dark text-light d-flex mx-auto mt-3" onClick={createList} >Create New List</button>
 
     </div>
   )

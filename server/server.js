@@ -15,8 +15,7 @@ app.use(cookieParser()); //to use cookies in express for JWT
 
 //bring in routes to server & give app we imported access to them
 require('./routes/teacher.routes')(app); //comment out til later
-
-require('./routes/student.routes')(app); 
+require('./routes/student.routes')(app);
 require('./routes/supplyList.routes')(app); 
 
 

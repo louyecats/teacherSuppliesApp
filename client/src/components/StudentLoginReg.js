@@ -36,7 +36,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
       })
       .catch(err => {
         console.log("Reg errors", err);
-        const errorResponse = err.response.data;
+        const errorResponse = err.response.data.errors;
         const errorArr = [];
         for (const key of Object.keys(errorResponse)) {
           errorArr.push(errorResponse[key].message)
@@ -66,7 +66,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
     axios.post("http://localhost:8000/student/login", loginInfo, { withCredentials: true })
       .then(res => {
         console.log("logged in res.data._id", res.data._id);
-        setUser(res.data.user._id)
+        setUser(res.data.user)
         //console.log("res.data.user.email",res.data.user.email);
         setLogged(true)
         //put logged user in state
@@ -82,8 +82,10 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
     <div className="mx-auto m-5">
       <h1>Student</h1>
       <h2 className="text-start offset-2">Register</h2>
+
       <div className="col-8 mx-auto bg-info p-3 m-4 rounded">
         <form action="" className="col" onSubmit={registerHandler}>
+          
           {errorsReg.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
 
           <div className="form-group">
@@ -122,7 +124,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
             <label htmlFor="password">Password:</label>
             <input type="password" className="form-control" name="password" id="password" onChange={logChangeHandler}></input>
           </div>
-          <button className="btn btn-dark mt-3 col-3">login</button>
+          <button className="btn btn-dark mt-3">Login</button>
         </form>
       </div>
     </div>
