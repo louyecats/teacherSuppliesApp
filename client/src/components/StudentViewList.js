@@ -35,7 +35,7 @@ const StudentViewList = ({ user, setUser, setLogged }) => {
     axios.get('http://localhost:8000/teachers/findAll')
       .then(res => {
         console.log("findAllTeachers res.data", res.data)
-        setAllTeachers(res.data)
+        setAllTeachers(res.data.teachers)
       })
       .catch(err => console.log(err));
   }, []);

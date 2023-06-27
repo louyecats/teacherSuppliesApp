@@ -44,7 +44,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
   // square brackets an array
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/supplyList/readAll")
+    axios.get("http://localhost:8000/api/supplyList/readAll", { withCredentials: true })
       // This needs to match the the axios route to call the getAllProducts function
       .then((res) => {
         //console.log(res.data);

@@ -52,14 +52,14 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
       //prevent default behavior of the submit
       //make a post request to create a new supplyList
       console.log("---------", supplyList)
-      axios.post('http://localhost:8000/api/supplyList/create', supplyList)
+      axios.post('http://localhost:8000/api/supplyList/create', supplyList, { withCredentials: true })
         .then(res => {
           console.log("This is the response", res);
           console.log("This is response.data", res.data);
           navigate('/TeacherDashboard')
         })
         .catch((err) => {
-          console.log("CreateList errors", err.response);
+          console.log("CreateList errors", err.response.data);
           const errorResponse = err.response.data.message;
           setErrors(errorResponse)
         })
