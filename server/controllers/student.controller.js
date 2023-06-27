@@ -11,7 +11,7 @@ module.exports = {
             const potentialStudent = await Student.findOne({ email: req.body.email });
             if (potentialStudent) { //if that findOne returns a value matching existing email- return error message
                 return res.status(400).json({
-                    message: "Email already exits"
+                    errors: {message: {email: "Email already exits"}}
                 });
             }
             //instead of creating a new student right away, want to initiate a web token first

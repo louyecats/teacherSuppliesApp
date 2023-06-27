@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const TeacherDashboard = ({ user, setUser, setLogged }) => {
 
@@ -10,7 +10,10 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
   useEffect(() => {
     axios.get("http://localhost:8000/currentuser", { withCredentials: true })
       .then(res => {
-        //console.log("logged user" + JSON.stringify(res.data))
+
+
+        // console.log("logged user" + JSON.stringify(res.data))
+
         //console.log("res.data.level", res.data.level)
         //set logged in user in  state
         setUser(res.data);
@@ -18,14 +21,18 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
           console.log("teacher not logged in")
           navigate('/')
         } else {
-          //console.log("teacher logged in")
+
+
+          // console.log("teacher logged in")
+
+
         }
       })
       .catch(err => {
-        console.log('currentuser error', err)
+        // console.log('currentuser error', err)
         setUser("")
       });
-  }, [user])
+  }, [])
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -39,21 +46,61 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
       .catch(err => console.log('logoutHandler error', err));
   };
 
+  const [state, setState] = useState([]);
+  // curly brackets make this an object
+  // square brackets an array
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/supplyList/readAll", { withCredentials: true })
+      // This needs to match the the axios route to call the getAllProducts function
+      .then((res) => {
+        console.log(res.data);
+        setState(res.data);
+        navigate('/TeacherDashboard')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [navigate]);
+
+
   const createList = (e) => { navigate("/TeacherCreateList") }
-  const viewList = (e) => { navigate("/TeacherViewList") }
 
   return (
-    <div className="mx-auto col-8 m-5">
+    <div className="mx-auto m-5 col-8">
       <div className="row">
         <h1 className="col text-start">School Supplies</h1>
         <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
       </div>
 
+
+      {/* ------- MAIN -------*/}
+      {user && user.firstName? 
       <h2 className="mt-3">Welcome {user.firstName}</h2>
-      <div className="col mx-auto bg-info p-3 m-4 rounded">
-        <button className="btn btn-light d-flex mx-auto" onClick={viewList}>View List</button>
-        <button className="btn btn-light d-flex mx-auto mt-3" onClick={createList} >Create List</button>
-      </div>
+      :
+      <h2 className="mt-3">Welcome!</h2>} 
+      <table className="table table-bordered mx-auto text-dark mx-auto bg-info col-8 m-5 rounded">
+          <thead>
+            <tr>
+              <th className="h3">Supply Lists:</th>
+            </tr>
+          </thead>
+          <tbody>
+            {state.map((supplyList) => {
+              return (
+                <tr key={supplyList._id}>
+                  <td>
+                    <Link to={`/readOne/${supplyList._id}`} className="link-light"> {supplyList.SupplyListName} </Link>
+                  </td>
+                  {/* Link to needs to have the route! and then the variable is linked */}
+                </tr>
+              )
+            })}
+          </tbody>
+
+      </table>
+        <button className="btn btn-dark text-light d-flex mx-auto mt-3" onClick={createList} >Create New List</button>
+
     </div>
   )
 }

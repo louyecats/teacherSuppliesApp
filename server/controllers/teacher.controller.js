@@ -56,24 +56,50 @@ module.exports = {
         catch (err) {
             return res.json(err);
         }
-    }, 
+    },
     //logged in user
-    loggedUser: async (req, res) =>{
+    loggedUser: async (req, res) => {
         // console.log("I'm here!")
         try {
             //console.log("loggedUser cookies token", req.cookies.usertoken)
             const user = jwt.verify(req.cookies.usertoken, secret);
-           // console.log("user", user)
+
+            // console.log("user", user)
+
+
             // const currentUser = await Model.findOne({_id: user._id});
             // console.log("loggedUser", currentUser);
             res.json(user);
         } catch (error) {
-            res.status(400).json({errors: 'error loggedUser'})
+            res.status(400).json({ errors: 'error loggedUser' })
         }
     },
     //logout an existing teacher
     logout: (req, res) => {
         res.clearCookie('usertoken');
-        res.sendStatus(200).json({message: "logged out teacher successfully"});
+        res.sendStatus(200).json({ message: "logged out teacher successfully" });
+    },
+    //READ ALL
+    findAllTeachers: (req, res) => {
+        Teacher.find({})
+            .then(allTeachers => {
+                // console.log(allTeachers)
+                res.json({ teachers: allTeachers })
+            })
+            .catch(err => {
+                console.log("findAll error", err)
+                res.status(400).json(err)
+            });
+    },
+    //READ ONE
+    findOneTeacher: (req, res) => {
+        Teacher.findById(req.params.id)
+            .then(onePet => {
+                res.json({ teacher: oneTeacher });
+            })
+            .catch((err) => {
+                console.log("findOne error", err);
+                res.status(400).json(err)
+            });
     }
 }
