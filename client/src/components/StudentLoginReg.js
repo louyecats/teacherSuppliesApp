@@ -95,8 +95,8 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
         navigate("/StudentViewList");
       })
       .catch(err => {
-        console.log("Login errors", err);
-        const errorResponse = err.response.data.message;
+        console.log("Login errors", err.response);
+        const errorResponse = err.response.data;
         setErrorsLogin(errorResponse)
       });
   }

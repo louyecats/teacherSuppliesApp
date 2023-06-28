@@ -11,7 +11,7 @@ module.exports = {
     // CRUD!
     // CREATE
     createSupplyList: (req, res) => {
-        console.log(req.body)
+        //console.log(req.body)
         //get logged in users token to place as creator value for supplyList model
         const user = jwt.verify(req.cookies.usertoken, secret);
         SupplyList.create({ ...req.body, creator: user })
@@ -61,7 +61,9 @@ module.exports = {
     // READ ONE
     getOneSupplyList: (req, res) => {
         SupplyList.findById(req.params.id)
-            .then(oneSupplyList => res.json(oneSupplyList))
+            .then(oneSupplyList => {
+                res.json({supplyList: oneSupplyList})
+            })
             .catch((err) => {
                 console.log("findOne error", err);
                 res.status(400).json(err)

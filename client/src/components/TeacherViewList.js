@@ -40,15 +40,15 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
     } else {
       axios.get(`http://localhost:8000/api/supplyList/readOne/${id}`, { withCredentials: true })
         .then(res => {
-          console.log("one supply list", res.data);
-          setSupplyList(res.data);
+          console.log("one supply list", res.data.supplyList);
+          setSupplyList(res.data.supplyList);
         })
         .catch(err => {
           console.log("get one supply list error", err);
         });
     }
   }, []);
-  
+
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -63,14 +63,15 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
   };
 
   const homeButton = (e) => { navigate("/TeacherDashboard") }
-  const editList = (e) => { navigate("/supplyList/readOne/:id") }
+  
+  //editList NOT WORKING
+  const editList = (e) => { navigate(`/supplyList/readOne/${id}`)}
 
-  ////////// DELETE NEEDS FINISHED
   const deleteList = (e) => {
     axios.delete(`http://localhost:8000/api/supplyList/delete/${id}`, { withCredentials: true })
       .then(res => console.log(res))
-      .catch(err => console.log(err))
-    navigate("/TeacherDashboard")
+      .catch(err => console.log("deleteList error", err))
+    navigate("/")
   }
 
   return (
@@ -87,14 +88,18 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
           :
           <h2 className="mt-3">{supplyList.SupplyListName}</h2>
         }
-        <ul>
-          <li className="text-white text-start">{supplyList.SupplyListItems}</li>
-        </ul>
-      </div> 
+        <div>
+        {/* orig SupplyListItems.replace(",", "<ul>") - but, replace only replaces the first occurrence of the comma in SupplyListItems string. For multiple items separated by commas, use split and map (c/o chatGPT) */}
+          {supplyList.SupplyListItems.split(",").map((item, index) => (
+            <li key={index} className="text-white text-start offset-1 fs-4">{item.trim()}</li>
+          ))}
+        </div>
+      </div>
 
       <div className="col mx-auto bg-info p-3 m-4 rounded">
-        <button className="btn btn-light d-flex mx-auto" onClick={(e) => editList(supplyList._id)}>Edit List</button>
-        <button className="btn btn-light d-flex mx-auto mt-3" onClick={deleteList} >Delete List</button>
+        <button className="btn btn-light" onClick={(e) => editList(supplyList._id)}>Edit List</button> 
+        
+        <button className="btn btn-danger" onClick={deleteList} >Delete List</button>
       </div>
     </div>
   )

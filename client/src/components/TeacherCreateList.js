@@ -100,7 +100,7 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
 
         <div className="col mx-auto bg-info p-3 m-4 rounded">
           {user && user.firstName ?
-            <h2 className="mt-3 text-start">Create a List for {user.firstName}:</h2>
+            <h2 className="mt-3 text-start">{user.pronoun} {user.firstName}</h2>
             :
             <h2 className="mt-3">Create a List:</h2>
           }
@@ -109,12 +109,12 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
           <form className="col rounded p-2" onSubmit={onSubmitHandler}>
           {errors.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
             <div className="">
-              <label htmlFor="SupplyListName">Supply List Name:</label><br />
+              <label htmlFor="SupplyListName" className="fs-4 mt-2">Supply List Name:</label><br />
               <input type="text" name="SupplyListName" id="SupplyListName" value={supplyList.SupplyListName} className="form-control" onChange={onChangeHandler} />
             </div>
 
             <div className="form-group">
-              <label htmlFor="SupplyListItems">Supply Items:</label><br />
+              <label htmlFor="SupplyListItems" className="fs-4 mt-2">Supply Items:</label><br />
               <textarea type="text" id="SupplyListItems" name="SupplyListItems" rows="15" cols="70" value={supplyList.SupplyListItems} className="form-control" onChange={onChangeHandler}>
               </textarea>
             </div>
