@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const productsController = require('../controllers/productsController');
+const productsController = require('../controllers/products.controller');
 
 router.get('/search', (req, res) => {
+    console.log('searching')
     productsController.searchProducts(req.query.searchTerm, req.query.sortBy)
             .then(response => {
             res.json(response.data);

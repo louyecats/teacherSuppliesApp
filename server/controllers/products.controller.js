@@ -1,4 +1,7 @@
-const api = require('../config/api');
+const api = require('../config/api.config');
+// const api_secret = process.env.API_KEY;
+// const jwt = require('jsonwebtoken');
+
 
 module.exports = {
     searchProducts: function (searchTerm, sortBy = 'best_seller') {
@@ -20,3 +23,5 @@ module.exports = {
         return api.makeRequest(params);
     }
 }
+
+
