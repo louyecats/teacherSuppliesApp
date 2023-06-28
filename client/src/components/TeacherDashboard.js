@@ -83,7 +83,7 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
               return ( 
                 <tr key={supplyList._id}>
                   <td>
-                    <Link to={`/supplyList/readOne/${supplyList._id}`} className="link-light"> {supplyList.SupplyListName} </Link>
+                    <Link to={`/supplyList/readOne/${supplyList._id}`} className="link-light fs-4"> {supplyList.SupplyListName} </Link>
                   </td>
                   {/* Link to needs to have the route! and then the variable is linked */}
                 </tr>

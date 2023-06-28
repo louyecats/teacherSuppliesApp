@@ -17,7 +17,7 @@ module.exports = {
             //instead of creating a new teacher right away, want to initiate a web token first
             const newTeacher = await Teacher.create(req.body)
             //the info we want to save inside teacher token is their id and email, any time use token have to pass in the secret variable declared above holding secret key, you can also pass in when it expires
-            const userToken = jwt.sign({ _id: newTeacher._id, email: newTeacher.email, firstName: newTeacher.firstName, level: "teacher" }, secret, { expiresIn: "2h" });
+            const userToken = jwt.sign({ _id: newTeacher._id, email: newTeacher.email, firstName: newTeacher.firstName, level: "teacher", pronoun: newTeacher.pronoun }, secret, { expiresIn: "2h" });
             //create the new cookie that is called userToken that holds our webtoken secret, the httpOnly is based off request, response message
             res.cookie("usertoken", userToken, { httpOnly: true }).json({
                 message: "Successfully registered a new teacher!",
@@ -36,7 +36,7 @@ module.exports = {
             if (teacher) { //if teacher email is in database, wait to to compare passwords from the request form key "password" input to the found teachers password in database from findOne method above & return true or false for match
                 const passwordMatch = await bcrypt.compare(req.body.password, teacher.password);
                 if (passwordMatch) { //if passwords match, create web token called userToken, that holds the id and email, must pass in the secret variable declared above holding secret key, pass in when expries
-                    const userToken = jwt.sign({ _id: teacher._id, email: teacher.email, firstName: teacher.firstName, level: "teacher" }, secret, { expiresIn: "2h" });
+                    const userToken = jwt.sign({ _id: teacher._id, email: teacher.email, firstName: teacher.firstName, pronoun: teacher.pronoun, level: "teacher" }, secret, { expiresIn: "2h" });
                     res.cookie("usertoken", userToken, secret, { httpOnly: true }).json({
                         message: "Successfully logged in a teacher!",
                         teacher: teacher
