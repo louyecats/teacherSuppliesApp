@@ -87,25 +87,7 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
           <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
         </div>
 
-        {/* <div className='App'> */}
-        {/* ------- HEADER ------- */}
-
-        {/* ------- MAIN -------*/}
-        {/* <div className='prompt1_main'> */}
-
-        {/* ------- ROW 1 -------*/}
-        {/* <div className="row-1">
-          <h1>Teacher Create List</h1>
-        </div> */}
-
         <div className="col mx-auto bg-info p-3 m-4 rounded">
-          {user && user.firstName ?
-            <h2 className="mt-3 text-start">{user.pronoun} {user.firstName}</h2>
-            :
-            <h2 className="mt-3">Create a List:</h2>
-          }
-
-          {/* ------- ROW 2/FORM -------*/}
           <form className="col rounded p-2" onSubmit={onSubmitHandler}>
           {errors.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
             <div className="">
@@ -119,14 +101,14 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
               </textarea>
             </div>
 
-            <button className="btn btn-dark mt-3">Submit Supply List</button>
+            <button className="btn btn-dark mt-3 p-3">Submit Supply List</button>
 
           </form>
 
         </div>
 
-      </div> // ------- app div ------- 
-    ) // ------- closing return -------  
-  }// ------- closing TeacherCreateList ------- 
+      </div>
+    )  
+  } 
 
   export default TeacherCreateList;

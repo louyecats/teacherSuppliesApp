@@ -11,7 +11,7 @@ const ChooseTeacherStudent = ({ user, setUser, setLogged }) => {
         axios.get("http://localhost:8000/currentuser", { withCredentials: true })
             .then(res => {
                 if (res.data.level === "student") {
-                    navigate('/StudentViewList')
+                    navigate('/StudentSelectTeacher')
                     console.log("student logged in")
                 } else if (res.data.level === "teacher") {
                     navigate('/TeacherDashboard')

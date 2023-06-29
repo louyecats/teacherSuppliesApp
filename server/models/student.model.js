@@ -33,6 +33,10 @@ const StudentSchema = new mongoose.Schema({
     teacher: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Teacher',
+    },
+    teacherLists: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SupplyList'
     }
 
 }, { timestamps: true });

@@ -94,7 +94,7 @@ module.exports = {
     //READ ONE
     findOneTeacher: (req, res) => {
         Teacher.findById(req.params.id)
-            .then(onePet => {
+            .then(oneTeacher => {
                 res.json({ teacher: oneTeacher });
             })
             .catch((err) => {
