@@ -18,24 +18,39 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
   const [searchResults, setSearchResults] = useState([]);
 
   // HANDLE SEARCH CHANGE
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  }
+  // const handleSearchInputChange = (e) => {
+  //   setSearchTerm(e.target.value);
+  // }
 
   // HANDLE SEARCH SUBMIT
-  const handleSearchSubmit = (e) => {
+  const onSubmitHandlerApi = (e) => {
     e.preventDefault();
-    // perform the search using the searchTerm state
-    // and update the searchResults state with the result
-    axios.get('https://api.redcircleapi.com/request', {searchTerm}) // replace with your actual search API endpoint
-      .then((res) => {
-        console.log('handleSearchSubmittttttt',res.data)
-        console.log(JSON.stringify(res.data, 0, 2));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  
+    // Make the API request with the updated search term
+    axios.get('https://api.redcircleapi.com/request', {
+      params: {
+        api_key: "3133DEE707A24A4CA17342A3BA693B14",
+        type: "search",
+        search_term: searchTerm,
+        sort_by: "best_seller"
+      }
+    })
+    .then(response => {
+      // Handle the response
+      console.log(response.data);
+      setSearchResults(response.data.search_results);
+    })
+    .catch(error => {
+      // Handle the error
+      console.log(error);
+    });
+  };
+  
+
+  const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  
 
   const onChangeHandler = (e) => {
     setSupplyList({
@@ -58,6 +73,17 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
         setUser("")
       });
   }, [])
+
+
+  // code to display the api search results
+  const searchResultsList = searchResults.map((result, index) => (
+    <li key={index}>
+      <h3>{result.product.title}</h3>
+      <p>{result.product.link}</p>
+      {/* Render other relevant data from the search results maybe we can implement the wishlist still?? */}
+    </li>
+  ));
+
 
   const onSubmitHandler = (e) => {
     //prevent default behavior of the submit
@@ -118,19 +144,14 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
           }
 
         {/* ADDITIONAL SEARCH FORM */}
-        <form onSubmit={handleSearchSubmit}>
+        <form onSubmit={onSubmitHandlerApi}>
           <label htmlFor="search">Search:</label><br />
-          <input type="text" id="search" value={searchTerm} onChange={handleSearchChange} />
+          <input type="text" id="search" value={searchTerm} onChange={handleSearchInputChange} />
           <input type="submit" value="Search" />
         </form>
-        {/* DISPLAY SEARCH RESULTS */}
-        <ul>
-          {searchResults.map((result, index) => (
-            <li key={index}>{result}</li>
-          ))}
-        </ul>
+        <ul>{searchResultsList}</ul>
 
-        <form className="col rounded p-2" onSubmit={onSubmitHandler}>
+        <form className="col rounded p-2" onSubmit={onSubmitHandlerApi}>
         {errors.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
           <div className="">
             <label htmlFor="SupplyListName" className="fs-4 mt-2">Supply List Name:</label><br />
