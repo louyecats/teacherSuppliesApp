@@ -6,7 +6,6 @@ const secret = process.env.SECRET_KEY;
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-    // export an object with methods for CRUD that affects the Story collection/db
 
     // CRUD!
     // CREATE
@@ -31,8 +30,9 @@ module.exports = {
     },
     //READ ALL for selected teacher id
     getAllBySelectedTeacher: (req, res) => {
-        const teacher = (req.params.id); //get selected teacherID from form
-        SupplyList.find({ creator: teacher._id })
+        console.log("req.params getallbyteacher", req.params)
+        const teacherId = (req.params.id); //get selected teacherID from form
+        SupplyList.find({ creator: teacherId})
             // .populate('creator')
             .then(e => res.json(e))
             .catch(e => res.status(400).json({ message: 'problem getAllBySelectedTeacher', error: e }))
@@ -42,17 +42,14 @@ module.exports = {
     // Mongoose method find()
     getAllSupplyLists: (req, res) => {
         SupplyList.find({})
-            // This is an empty object {} that is a query paramater to fetch all documents in the Story collection
+            .populate('creator')
+            //     path: 'creator',
+            //     select: 'pronoun, firstName, lastName, id'
+            // }) // Populate the 'creator' field with the associated 'Teacher' data
             .then(allSupplyLists => {
                 console.log(allSupplyLists);
-                res.json(allSupplyLists);
+                res.json({supplyLists: allSupplyLists});
             })
-            // allStories must match from .then(allStories
-            // console.log(allStories)
-            // to res.json(allStories)
-            //  When the database query is successful, the method executes the then callback function. It receives an array of allStories as a parameter. 
-            // the console logs the allStories array for debugging
-            // the array is then sent as a JSON response
             .catch(err => {
                 console.log("getAllSupplyLists Error!", err)
                 res.json(err)
@@ -73,7 +70,7 @@ module.exports = {
     updateSupplyList: (req, res) => {
         SupplyList.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
             // new: true will return the new document instead of the old one.
-            .then(updatedSupplyList => res.json(updatedSupplyList))
+            .then(updatedSupplyList => res.json({supplyList: updatedSupplyList}))
             .catch(err => res.json(err));
     },
     // DELETE

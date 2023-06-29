@@ -24,7 +24,6 @@ const SupplyListSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Teacher',
     }
-
 },
     { timestamps: true });
 

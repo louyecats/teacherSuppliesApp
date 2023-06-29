@@ -54,7 +54,7 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
         console.log("new registered user", res.data)
         setUser(res.data._id) //put loggedUser in state
         setLogged(true) //put logged user in state
-        navigate("/StudentViewList")
+        navigate("/StudentSelectTeacher")
       })
       .catch(err => {
         console.log("Reg errors", err);
@@ -92,11 +92,11 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
         //console.log("res.data.user.email",res.data.user.email);
         setLogged(true)
         //put logged user in state
-        navigate("/StudentViewList");
+        navigate("/StudentSelectTeacher");
       })
       .catch(err => {
         console.log("Login errors", err.response);
-        const errorResponse = err.response.data;
+        const errorResponse = err.response.data.message;
         setErrorsLogin(errorResponse)
       });
   }

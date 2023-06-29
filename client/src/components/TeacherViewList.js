@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 const TeacherViewList = ({ user, setUser, setLogged }) => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
     } else {
       axios.get(`http://localhost:8000/api/supplyList/readOne/${id}`, { withCredentials: true })
         .then(res => {
-          console.log("one supply list", res.data.supplyList);
+          //console.log("one supply list", res.data.supplyList);
           setSupplyList(res.data.supplyList);
         })
         .catch(err => {
@@ -63,9 +63,6 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
   };
 
   const homeButton = (e) => { navigate("/TeacherDashboard") }
-  
-  //editList NOT WORKING
-  const editList = (e) => { navigate(`/supplyList/readOne/${id}`)}
 
   const deleteList = (e) => {
     axios.delete(`http://localhost:8000/api/supplyList/delete/${id}`, { withCredentials: true })
@@ -84,12 +81,12 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
 
       <div className="col mx-auto bg-info p-3 m-4 rounded">
         {user && user.firstName ?
-          <h2 className="mt-3 text-start">{user.firstName}'s List:</h2>
+          <h2 className="mt-3 text-start">{user.firstName}'s {supplyList.SupplyListName} List:</h2>
           :
-          <h2 className="mt-3">{supplyList.SupplyListName}</h2>
+          ""
         }
         <div>
-        {/* orig SupplyListItems.replace(",", "<ul>") - but, replace only replaces the first occurrence of the comma in SupplyListItems string. For multiple items separated by commas, use split and map (c/o chatGPT) */}
+          {/* orig SupplyListItems.replace(",", "<ul>") - but, replace only replaces the first occurrence of the comma in SupplyListItems string. For multiple items separated by commas, use split and map (c/o chatGPT) */}
           {supplyList.SupplyListItems.split(",").map((item, index) => (
             <li key={index} className="text-white text-start offset-1 fs-4">{item.trim()}</li>
           ))}
@@ -97,9 +94,13 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
       </div>
 
       <div className="col mx-auto bg-info p-3 m-4 rounded">
-        <button className="btn btn-light" onClick={(e) => editList(supplyList._id)}>Edit List</button> 
-        
-        <button className="btn btn-danger" onClick={deleteList} >Delete List</button>
+        <Link to={"/TeacherEditList/" + supplyList._id} className="btn btn-light">Edit List</Link>
+        <button className="btn btn-danger" onClick={(e) => {
+          const confirmDelete = window.confirm(
+            "Delete List?"
+          )
+          if (confirmDelete === true) { deleteList(id) }
+        }}>Delete</button>
       </div>
     </div>
   )

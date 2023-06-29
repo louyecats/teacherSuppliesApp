@@ -66,33 +66,23 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
         <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
       </div>
 
+      <div className="table mx-auto text-dark mx-auto bg-info col-8 m-5 p-3 rounded">
+        <h2 className="mt-2">{user.pronoun} {user.firstName}'s' Supply Lists:</h2>
+          <div className="mt-4">
+          {state.map((supplyList) => {
+            return (
+              <ul className="list-group" key={supplyList._id}>
 
-      {/* ------- MAIN -------*/}
-      {user && user.firstName? 
-      <h2 className="mt-3">Welcome {user.firstName}</h2>
-      :
-      <h2 className="mt-3">Welcome!</h2>} 
-      <table className="table table-bordered mx-auto text-dark mx-auto bg-info col-8 m-5 rounded">
-          <thead>
-            <tr>
-              <th className="h3">Supply Lists:</th>
-            </tr>
-          </thead>
-          <tbody>
-            {state.map((supplyList) => {
-              return ( 
-                <tr key={supplyList._id}>
-                  <td>
+                  <li className="list-group-item">
                     <Link to={`/supplyList/readOne/${supplyList._id}`} className="link-light fs-4"> {supplyList.SupplyListName} </Link>
-                  </td>
-                  {/* Link to needs to have the route! and then the variable is linked */}
-                </tr>
-              )
-            })}
-          </tbody>
+                  </li>
+              </ul>
+            )
+          })}
+        </div>
 
-      </table>
-        <button className="btn btn-dark text-light d-flex mx-auto mt-3" onClick={createList} >Create New List</button>
+      </div>
+      <button className="btn btn-dark text-light d-flex mx-auto mt-3 p-3" onClick={createList} >Create New List</button>
 
     </div>
   )
