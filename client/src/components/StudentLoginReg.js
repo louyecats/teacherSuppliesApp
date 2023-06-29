@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,6 +16,28 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
     password: "",
     confirmPassword: ""
   })
+
+      //get logged in user w/token credentials
+    //so if user is logged in, this page navigates forward
+    useEffect(() => {
+      axios.get("http://localhost:8000/currentuser", { withCredentials: true })
+          .then(res => {
+              if (res.data.level === "student") {
+                  navigate('/StudentViewList')
+                  console.log("student logged in")
+              } else if (res.data.level === "teacher") {
+                  navigate('/TeacherDashboard')
+                  console.log("teacher logged in")
+              } else {
+                  console.log("teacher or student not logged in")
+              }
+          })
+          .catch(err => {
+              console.log('currentuser error', err)
+              setUser("")
+          });
+  }, [])
+
 
   const regChangeHandler = (e) => {
     setUserInfo({
@@ -73,8 +95,8 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
         navigate("/StudentViewList");
       })
       .catch(err => {
-        console.log("Login errors", err);
-        const errorResponse = err.response.data.message;
+        console.log("Login errors", err.response);
+        const errorResponse = err.response.data;
         setErrorsLogin(errorResponse)
       });
   }

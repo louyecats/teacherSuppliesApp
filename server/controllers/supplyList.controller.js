@@ -11,11 +11,14 @@ module.exports = {
     // CRUD!
     // CREATE
     createSupplyList: (req, res) => {
-        console.log(req.body)
+        //console.log(req.body)
         //get logged in users token to place as creator value for supplyList model
         const user = jwt.verify(req.cookies.usertoken, secret);
         SupplyList.create({ ...req.body, creator: user })
-            .then(supplyList => res.json(supplyList))
+            .then(supplyList => {
+                console.log("createSupplyList", res )
+                res.json(supplyList)
+            })
             .catch(err => res.json(err));
     },
     //READ ALL for logged in teachers lists
@@ -58,8 +61,13 @@ module.exports = {
     // READ ONE
     getOneSupplyList: (req, res) => {
         SupplyList.findById(req.params.id)
-            .then(oneSupplyList => res.json(oneSupplyList))
-            .catch(err => res.json(err));
+            .then(oneSupplyList => {
+                res.json({supplyList: oneSupplyList})
+            })
+            .catch((err) => {
+                console.log("findOne error", err);
+                res.status(400).json(err)
+            });
     },
     // UPDATE
     updateSupplyList: (req, res) => {

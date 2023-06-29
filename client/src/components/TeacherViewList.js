@@ -1,9 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const TeacherViewList = ({ user, setUser, setLogged }) => {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [supplyList, setSupplyList] = useState({
+    SupplyListName: "",
+    SupplyListItems: "",
+    creator: ""
+  })
 
   //get logged in user w/token credentials
   useEffect(() => {
@@ -17,7 +24,7 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
           console.log("teacher not logged in")
           navigate('/')
         } else {
-         // console.log("teacher logged in")
+          console.log("teacher logged in")
         }
       })
       .catch(err => {
@@ -25,6 +32,23 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
         setUser("")
       });
   }, [])
+
+  //get one supply list by id
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    } else {
+      axios.get(`http://localhost:8000/api/supplyList/readOne/${id}`, { withCredentials: true })
+        .then(res => {
+          console.log("one supply list", res.data.supplyList);
+          setSupplyList(res.data.supplyList);
+        })
+        .catch(err => {
+          console.log("get one supply list error", err);
+        });
+    }
+  }, []);
+
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -39,9 +63,16 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
   };
 
   const homeButton = (e) => { navigate("/TeacherDashboard") }
-  const editList = (e) => { navigate("/TeacherEditList") }
-////////// DELETE NEEDS FINISHED
-  const deleteList = (e) => {""}
+  
+  //editList NOT WORKING
+  const editList = (e) => { navigate(`/supplyList/readOne/${id}`)}
+
+  const deleteList = (e) => {
+    axios.delete(`http://localhost:8000/api/supplyList/delete/${id}`, { withCredentials: true })
+      .then(res => console.log(res))
+      .catch(err => console.log("deleteList error", err))
+    navigate("/")
+  }
 
   return (
     <div className="mx-auto col-8 m-5">
@@ -52,19 +83,23 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
       </div>
 
       <div className="col mx-auto bg-info p-3 m-4 rounded">
-      {user && user.firstName ?
-        <h2 className="mt-3 text-start">{user.firstName}'s List:</h2>
-        :
-        <h2 className="mt-3">Supplies List:</h2>
-      }
-        <ul>
-          <li className="text-white text-start">Supplies go here</li>
-        </ul>
+        {user && user.firstName ?
+          <h2 className="mt-3 text-start">{user.firstName}'s List:</h2>
+          :
+          <h2 className="mt-3">{supplyList.SupplyListName}</h2>
+        }
+        <div>
+        {/* orig SupplyListItems.replace(",", "<ul>") - but, replace only replaces the first occurrence of the comma in SupplyListItems string. For multiple items separated by commas, use split and map (c/o chatGPT) */}
+          {supplyList.SupplyListItems.split(",").map((item, index) => (
+            <li key={index} className="text-white text-start offset-1 fs-4">{item.trim()}</li>
+          ))}
+        </div>
       </div>
 
       <div className="col mx-auto bg-info p-3 m-4 rounded">
-        <button className="btn btn-light d-flex mx-auto" onClick={editList}>Edit List</button>
-        <button className="btn btn-light d-flex mx-auto mt-3" onClick={deleteList} >Delete List</button>
+        <button className="btn btn-light" onClick={(e) => editList(supplyList._id)}>Edit List</button> 
+        
+        <button className="btn btn-danger" onClick={deleteList} >Delete List</button>
       </div>
     </div>
   )
