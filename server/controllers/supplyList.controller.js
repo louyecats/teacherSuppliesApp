@@ -30,22 +30,18 @@ module.exports = {
     },
     //READ ALL for selected teacher id
     getAllBySelectedTeacher: (req, res) => {
-        console.log("req.params getallbyteacher", req.params)
-        const teacherId = (req.params.id); //get selected teacherID from form
+        console.log("req.params.selectedTeacherId getallbyteacher", req.params.selectedTeacherId)
+        const teacherId = (req.params.selectedTeacherId); //get selected teacherID from form
         SupplyList.find({ creator: teacherId})
-            // .populate('creator')
+            .populate('creator')
             .then(e => res.json(e))
             .catch(e => res.status(400).json({ message: 'problem getAllBySelectedTeacher', error: e }))
     },
 
     // READ ALL
-    // Mongoose method find()
     getAllSupplyLists: (req, res) => {
         SupplyList.find({})
             .populate('creator')
-            //     path: 'creator',
-            //     select: 'pronoun, firstName, lastName, id'
-            // }) // Populate the 'creator' field with the associated 'Teacher' data
             .then(allSupplyLists => {
                 console.log(allSupplyLists);
                 res.json({supplyLists: allSupplyLists});

@@ -10,13 +10,16 @@ import TeacherEditList from './components/TeacherEditList';
 import StudentLoginReg from './components/StudentLoginReg';
 import StudentSelectTeacher from './components/StudentSelectTeacher'
 import ChooseTeacherStudent from './components/ChooseTeacherStudent';
-import StudentSelectTeacherList from './components/StudentSelectTeacherList'
+import StudentSelectList from './components/StudentSelectList'
 import StudentViewOneList from './components/StudentViewOneList';
 
 
 function App() {
   const [user, setUser] = useState("")
   const [logged, setLogged] = useState(false)
+  const [lists, setLists] = useState([]);
+  const [selectedTeacherId, setSelectedTeacherId] = useState("");  
+  const [selectedListId, setSelectedListId] = useState("");
 
   return (
     <div className="App">
@@ -38,11 +41,11 @@ function App() {
 
           <Route element={<StudentLoginReg user={user} setUser={setUser} setLogged={setLogged}/>} path="/StudentLoginReg"  />
           
-          <Route path="/StudentSelectTeacher" element={<StudentSelectTeacher user={user} setUser={setUser} setLogged={setLogged} />} />
+          <Route path="/StudentSelectTeacher" element={<StudentSelectTeacher user={user} setUser={setUser} setLogged={setLogged} selectedTeacherId={selectedTeacherId} setSelectedTeacherId={setSelectedTeacherId} />} />
 
-          <Route path="/Student/TeacherList/:id" element={<StudentSelectTeacherList user={user} setUser={setUser} setLogged={setLogged} />} />
+          <Route path="/Student/TeacherList" element={<StudentSelectList user={user} setUser={setUser} setLogged={setLogged} selectedTeacherId={selectedTeacherId} selectedListId={selectedListId} setSelectedListId={setSelectedListId} />} />
 
-          <Route element={<StudentViewOneList user={user} setUser={setUser} setLogged={setLogged}/>} path="/supplyList/readOne/:id"  />
+          <Route element={<StudentViewOneList user={user} setUser={setUser} setLogged={setLogged} selectedListId={selectedListId} setSelectedListId={setSelectedListId}/>} path="Student/supplyList/:selectedListId"  />
 
         </Routes>
       </BrowserRouter>
