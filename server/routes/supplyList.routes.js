@@ -7,7 +7,9 @@ module.exports = app => {
 
     app.get('/api/supplyList/allLists', SupplyListController.getAllSupplyLists);
 
-    app.get('/api/supplyList/getAllByTeacher/:id', SupplyListController.getAllBySelectedTeacher);
+    app.get('/api/supplyList/getAllByTeacher/:selectedTeacherId', SupplyListController.getAllBySelectedTeacher);
+    // app.get('/api/supplyList/getAllTeacherLists/', SupplyListController.getAllSupplyLists);
+    
     app.get('/api/supplyList/readOne/:id', SupplyListController.getOneSupplyList);
     app.patch('/api/supplyList/update/:id', SupplyListController.updateSupplyList);
     app.delete('/api/supplyList/delete/:id', SupplyListController.deleteSupplyList);

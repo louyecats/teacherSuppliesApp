@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 
-const StudentSelectTeacher = ({ user, setUser, setLogged }) => {
+const StudentSelectTeacher = ({ user, setUser, setLogged, selectedTeacherId, setSelectedTeacherId }) => {
 
     const navigate = useNavigate();
     const [allTeachers, setAllTeachers] = useState([]);
-    const [selectedTeacherId, setSelectedTeacherId] = useState("");
+    //const [selectedTeacherId, setSelectedTeacherId] = useState("");
     const [errors, setErrors] = useState([]);
     const { id } = useParams();
 
@@ -25,7 +25,8 @@ const StudentSelectTeacher = ({ user, setUser, setLogged }) => {
     const teacherHandler = (e) => {
         e.preventDefault();
         console.log("selecteteacherid", selectedTeacherId)
-        navigate(`/Student/TeacherList/${selectedTeacherId}`)
+        //navigate(`/Student/TeacherList/${selectedTeacherId}`)
+        navigate('/Student/TeacherList')
         
         // axios.get(`http://localhost:8000/api/supplyList/getAllByTeacher/${selectedTeacherId}`)
         //     .then(res => {

@@ -2,28 +2,32 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 
-const StudentSelectTeacherList = ({ user, setUser, setLogged }) => {
+const StudentSelectList = ({ user, setUser, setLogged, selectedTeacherId, selectedListId, setSelectedListId }) => {
 
     const navigate = useNavigate();
     const [allLists, setAllLists] = useState([]);
-    const [selectedListId, setSelectedListId] = useState("");
+    const [teacherLists, setTeacherLists] = useState([])
     const [errors, setErrors] = useState([]);
-    const { selectedTeacherId } = useParams();
+
 
     //get all lists from one teacher
     useEffect(() => {
+        console.log("selectedTeacherId", selectedTeacherId)
         axios.get(`http://localhost:8000/api/supplyList/getAllByTeacher/${selectedTeacherId}`)
             .then(res => {
-                //the response is an array of objects that we will set in state
-                console.log("findAllListsByOneTeacher res.data", res.data)
-                setAllLists(res.data)
+                console.log(("findAllListsByTeachers res.data", res.data)) 
+                setTeacherLists(res.data)
             })
-            .catch(err => console.log(err))
-    }, []);
+            .catch(err => {
+                console.log('findAllListsByTeachers error', err)
+                });
+    }, [])
+
 
     const listHandler = (e) => {
         e.preventDefault();
-        navigate(`/`)
+        console.log("about to navigate to selected list", selectedListId)
+        navigate(`/Student/supplyList/${selectedListId}`)
     }
 
     const logoutHandler = (e) => {
@@ -57,7 +61,7 @@ const StudentSelectTeacherList = ({ user, setUser, setLogged }) => {
                         <label htmlFor="teacherSelect" className="fw-bolder">Select List: </label>
                         <select id="teacherSelect" value={selectedListId} className="form-control" onChange={(e) => setSelectedListId(e.target.value)}>
                             <option value="">-- Select List --</option>
-                            {allLists && allLists.map(list => (
+                            {teacherLists && teacherLists.map(list => (
                                 <option key={list._id} value={list._id}>
                                     {list.SupplyListName}
                                 </option>
@@ -72,4 +76,4 @@ const StudentSelectTeacherList = ({ user, setUser, setLogged }) => {
     )
 }
 
-export default StudentSelectTeacherList
+export default StudentSelectList
