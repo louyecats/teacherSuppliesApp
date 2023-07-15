@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import student from '../assets/student.png';
+
+
 const StudentSelectTeacher = ({ user, setUser, setLogged, selectedTeacherId, setSelectedTeacherId }) => {
 
     const navigate = useNavigate();
@@ -64,15 +69,26 @@ const StudentSelectTeacher = ({ user, setUser, setLogged, selectedTeacherId, set
             })
             .catch(err => console.log('logoutHandler error', err));
     };
-
+    
+    const ChooseButton = (e) => { navigate("/StudentSelectTeacher") }
 
 return (
     <div className="mx-auto col-8 m-5">
 
-        <div className="row">
-            <h1 className="col text-start">School Supplies</h1>
-            <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
+      {/* ------- HEADER ------- */}
+      <div className='row align-items-center'>
+        <div className='col'>
+          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={ChooseButton} src={SSlogo} />
+          <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
         </div>
+        <div className="col text-end">
+          <img className='student' alt="Student Login and Registration" src={student} />
+        </div>
+      </div>{/* Header close */}
+
+      {/* ------- MAIN -------*/}
+
+
 
         {user && user.firstName ?
             <h2 className="mt-4">Welcome, {user.firstName}!</h2>
