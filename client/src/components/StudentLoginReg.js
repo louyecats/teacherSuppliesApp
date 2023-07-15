@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import loginImage from '../assets/LoginOval.png';
+import regImage from '../assets/RegOval.png';
+import student from '../assets/student.png';
+
 const StudentLoginReg = ({ user, setUser, setLogged }) => {
 
   const navigate = useNavigate();
@@ -17,25 +23,25 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
     confirmPassword: ""
   })
 
-      //get logged in user w/token credentials
-    //so if user is logged in, this page navigates forward
-    useEffect(() => {
-      axios.get("http://localhost:8000/currentuser", { withCredentials: true })
-          .then(res => {
-              if (res.data.level === "student") {
-                  navigate('/StudentViewList')
-                  console.log("student logged in")
-              } else if (res.data.level === "teacher") {
-                  navigate('/TeacherDashboard')
-                  console.log("teacher logged in")
-              } else {
-                  console.log("teacher or student not logged in")
-              }
-          })
-          .catch(err => {
-              console.log('currentuser error', err)
-              setUser("")
-          });
+  //get logged in user w/token credentials
+  //so if user is logged in, this page navigates forward
+  useEffect(() => {
+    axios.get("http://localhost:8000/currentuser", { withCredentials: true })
+      .then(res => {
+        if (res.data.level === "student") {
+          navigate('/StudentViewList')
+          console.log("student logged in")
+        } else if (res.data.level === "teacher") {
+          navigate('/TeacherDashboard')
+          console.log("teacher logged in")
+        } else {
+          console.log("teacher or student not logged in")
+        }
+      })
+      .catch(err => {
+        console.log('currentuser error', err)
+        setUser("")
+      });
   }, [])
 
 
@@ -100,56 +106,75 @@ const StudentLoginReg = ({ user, setUser, setLogged }) => {
         setErrorsLogin(errorResponse)
       });
   }
+
+  const ChooseButton = (e) => { navigate("/") }
+
   return (
-    <div className="mx-auto m-5">
-      <h1>Student</h1>
-      <h2 className="text-start offset-2">Register</h2>
+    <div className="mx-auto col-8 m-5">
 
-      <div className="col-8 mx-auto bg-info p-3 m-4 rounded">
-        <form action="" className="col" onSubmit={registerHandler}>
-          
-          {errorsReg.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
+      {/* ------- HEADER ------- */}
+      <div className='row align-items-center'>
+        <div className='col'>
+          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={ChooseButton} src={SSlogo} />
+        </div>
+        <div className="col text-end">
+          <img className='student' alt="Student Login and Registration" src={student} />
+        </div>
+      </div>{/* Header close */}
 
-          <div className="form-group">
-            <label htmlFor="firstName">First Name:</label>
-            <input type="text" className="form-control" name="firstName" id="firstName" onChange={regChangeHandler}></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="lastName">Last Name:</label>
-            <input type="text" className="form-control" name="lastName" id="lastName" onChange={regChangeHandler}></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input type="text" className="form-control" name="email" id="email" onChange={regChangeHandler}></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input type="password" className="form-control" name="password" id="password" onChange={regChangeHandler}></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input type="password" className="form-control" name="confirmPassword" id="confirmPassword" onChange={regChangeHandler}></input>
-          </div>
-          <button className="btn btn-dark mt-3">Register</button>
-        </form>
-      </div>
+      {/* ------- MAIN -------*/}
 
-      <h2 className="text-start offset-2">Login</h2>
-      <div className="col-8 mx-auto bg-info p-3 m-4 rounded">
-        <form action="" className="col" onSubmit={loginHandler}>
-          {errorsLogin && <p className="fst-italic text-danger">{errorsLogin}</p>}
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input type="text" className="form-control" name="email" id="email" onChange={logChangeHandler}></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input type="password" className="form-control" name="password" id="password" onChange={logChangeHandler}></input>
-          </div>
-          <button className="btn btn-dark mt-3">Login</button>
-        </form>
-      </div>
-    </div>
+      <div className='mainLoginReg'>
+        {/* ------- Login -------*/}
+        <div className="loginDiv" style={{ backgroundImage: `url(${loginImage})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "right" }}>
+          <form action="" className="loginForm" onSubmit={loginHandler}>
+            {errorsLogin && <p className="fst-italic text-danger">{errorsLogin}</p>}
+            <div className="">
+              <label htmlFor="email">Email:</label>
+              <input type="text" className="" name="email" id="email" onChange={logChangeHandler}></input>
+            </div>
+            <div className="">
+              <label htmlFor="password">Password:</label>
+              <input type="password" className="" name="password" id="password" onChange={logChangeHandler}></input>
+            </div>
+            <button className="btn btn-dark mt-3">Login</button>
+          </form>
+        </div>
+
+        {/* ------- Register ------- */}
+
+        <div className="regDiv" style={{ backgroundImage: `url(${regImage})`, backgroundRepeat: "no-repeat", backgroundSize: "contain" }}>
+          <form action="" className="registerForm" onSubmit={registerHandler}>
+
+            {errorsReg.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
+
+            <div className="">
+              <label htmlFor="firstName">First Name:</label>
+              <input type="text" className="" name="firstName" id="firstName" onChange={regChangeHandler}></input>
+            </div>
+            <div className="">
+              <label htmlFor="lastName">Last Name:</label>
+              <input type="text" className="" name="lastName" id="lastName" onChange={regChangeHandler}></input>
+            </div>
+            <div className="">
+              <label htmlFor="email">Email:</label>
+              <input type="text" className="" name="email" id="email" onChange={regChangeHandler}></input>
+            </div>
+            <div className="">
+              <label htmlFor="password">Password:</label>
+              <input type="password" className="" name="password" id="password" onChange={regChangeHandler}></input>
+            </div>
+            <div className="">
+              <label htmlFor="confirmPassword">Confirm Password:</label>
+              <input type="password" className="" name="confirmPassword" id="confirmPassword" onChange={regChangeHandler}></input>
+            </div>
+            <button className="btn btn-dark mt-3">Register</button>
+          </form>
+        </div>
+
+      </div> {/* MainLoginReg div close  */}
+
+    </div> // Big div close 
   )
 }
 

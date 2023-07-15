@@ -2,8 +2,14 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import IATeacher from '../assets/IAmTeacherOval.png';
+import IAStudent from '../assets/IAmStudentOval.png';
+
 const ChooseTeacherStudent = ({ user, setUser, setLogged }) => {
     const navigate = useNavigate();
+    const ChooseButton = (e) => { navigate("/") }
 
     //get logged in user w/token credentials
     //so if user is logged in, this page navigates forward
@@ -26,13 +32,21 @@ const ChooseTeacherStudent = ({ user, setUser, setLogged }) => {
     }, [])
 
     return (
-        <div className="mx-auto m-5">
-            <h1 className="text-start offset-2">School Supplies</h1>
-            <div className="col col-4 mx-auto bg-info p-3 m-4 rounded">
-                <a className="btn btn-light m-3 d-flex" href="./TeacherLoginReg">I am a teacher</a>
-                <a className="btn btn-light m-3 d-flex" href="./StudentLoginReg">I am a student</a>
+        <div className="mx-auto col-8 m-5">
+            {/* ------- HEADER ------- */}
+            <div className='row align-items-center'>
+                <div className='col'>
+                    <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={ChooseButton} src={SSlogo} />
+                </div>
+            </div>{/* Header close */}
+
+            {/* ------- MAIN -------*/}
+
+            <div className='chooseTS'>
+                <a className="chooseT" href="./TeacherLoginReg"><img className="chooseTimage" alt="I am a teacher" src={IATeacher} /></a>
+                <a className="chooseS" href="./StudentLoginReg"><img className="chooseSimage" alt="I am a student" src={IAStudent} /></a>
             </div>
-        </div>
+        </div> // Big div close
     )
 }
 
