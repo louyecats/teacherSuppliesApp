@@ -28,24 +28,30 @@
 } */
 
 .SSlogo-image {
-  max-width: 400px; /* Set a maximum width for the image */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 400px;
+  /* Set a maximum width for the image */
+  height: auto;
+  /* Maintain aspect ratio */
 }
 
 .teacher {
-  max-width: 300px; /* Set a maximum width for the image */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 300px;
+  /* Set a maximum width for the image */
+  height: auto;
+  /* Maintain aspect ratio */
 }
 
 .student {
-  max-width: 300px; /* Set a maximum width for the image */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 300px;
+  /* Set a maximum width for the image */
+  height: auto;
+  /* Maintain aspect ratio */
 }
 
 /* ---- Choose Teacher or Student ---- */
 
 .chooseTS {
-  display: flex;
+  /* display: flex; */
   margin-top: 10%;
   padding-top: 2%;
   display: grid;
@@ -57,15 +63,20 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 300px; /* Set a maximum width for the image */
-  height: auto; /* Maintain aspect ratio */}
+  max-width: 300px;
+  /* Set a maximum width for the image */
+  height: auto;
+  /* Maintain aspect ratio */
+}
 
 .chooseSimage {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 300px; /* Set a maximum width for the image */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 300px;
+  /* Set a maximum width for the image */
+  height: auto;
+  /* Maintain aspect ratio */
 }
 
 /* ---- LoginReg ---- */
@@ -100,17 +111,17 @@
 }
 
 .registerForm {
-  padding-top: 100px;
-  margin-left: 130px;
+  padding-top: 120px;
   width: 50%;
+  margin-left: 130px;
   margin-left: 110px;
   /* border: 2px solid blueviolet; */
 }
 
-.registerForm {
+.registerFormTeacher {
   padding-top: 100px;
-  margin-left: 130px;
   width: 50%;
+  margin-left: 130px;
   margin-left: 110px;
   /* border: 2px solid blueviolet; */
 }
@@ -136,3 +147,40 @@ select {
   border-radius: 3px;
 }
 
+/* ---- StudentSelectTeacher ---- */
+.bodyOval {
+  margin: auto;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(226, 43, 180);
+}
+
+.bOvalForm {
+  margin: auto;
+  width: 40%;
+  border: 2px solid blueviolet;
+}
+
+.bodyOvalList {
+  margin: auto;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3%;
+  /* justify-content: center; */
+  border: 2px solid rgb(226, 43, 180);
+}
+
+
+.welcome {
+  margin: auto;
+  max-width: 400px;
+  /* Set a specific maximum width */
+  width: 80%;
+  padding-top: 10%;
+  border: 2px solid rgb(43, 226, 83);
+}

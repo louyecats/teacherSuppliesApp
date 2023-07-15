@@ -126,7 +126,7 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
       <div className='mainLoginReg'>
         {/* ------- Login -------*/}
 
-        <div className="loginDiv" style={{ backgroundImage: `url(${loginImage})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "right" }}>
+        <div className="loginDiv" style={{ backgroundImage: `url(${loginImage})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center"}}>
           <form action="" className="loginForm" onSubmit={loginHandler}>
             {errorsLogin && <p className="fst-italic text-danger">{errorsLogin}</p>}
             <div className="">
@@ -143,8 +143,8 @@ const TeacherLoginReg = ({ user, setUser, setLogged }) => {
 
         {/* ------- Register ------- */}
 
-        <div className="regDiv" style={{ backgroundImage: `url(${regImage})`, backgroundRepeat: "no-repeat", backgroundSize: "contain" }}>
-          <form action="" className="registerForm" onSubmit={registerHandler}>
+        <div className="regDiv" style={{ backgroundImage: `url(${regImage})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center" }}>
+          <form action="" className="registerFormTeacher" onSubmit={registerHandler}>
 
             {errorsReg.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
 

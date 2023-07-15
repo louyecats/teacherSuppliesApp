@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import student from '../assets/student.png';
+import bOval from '../assets/bodyoval.png';
 
 const StudentViewOneList = ({ user, setUser, setLogged, selectedListId }) => {
   const navigate = useNavigate();
@@ -66,13 +70,22 @@ const StudentViewOneList = ({ user, setUser, setLogged, selectedListId }) => {
 
   return (
     <div className="mx-auto col-8 m-5">
-      <div className="row">
-        <h1 className="col text-start">School Supplies</h1>
-        <button className="col-2 btn btn-info" onClick={homeButton}>Home</button>
-        <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
+      {/* ------- HEADER ------- */}
+      <div className='row align-items-center'>
+        <div className='col-md-6'>
+          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={homeButton} src={SSlogo} />
+        </div>
+        <div className='col-md-6 text-md-end mt-3 mt-md-0'>
+          <button className="btn btn-dark" onClick={logoutHandler}>Logout</button>
+        </div>
       </div>
+      <div className="col text-end">
+        <img className='student' alt="Student Login and Registration" src={student} />
+      </div>
+      {/* ------- MAIN -------*/}
 
-      <div className="col mx-auto bg-info p-3 m-4 rounded">
+
+      <div className="bodyOvalList" style={{ backgroundImage: `url(${bOval})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center" }}>
         {user && user.firstName ?
           <h2 className="mt-3 text-start">{user.firstName}'s {supplyList.SupplyListName} List:</h2>
           :
@@ -81,7 +94,7 @@ const StudentViewOneList = ({ user, setUser, setLogged, selectedListId }) => {
         <div>
           {/* orig SupplyListItems.replace(",", "<ul>") - but, replace only replaces the first occurrence of the comma in SupplyListItems string. For multiple items separated by commas, use split and map (c/o chatGPT) */}
           {supplyList.SupplyListItems.split(",").map((item, index) => (
-            <li key={index} className="text-white text-start offset-1 fs-4">{item.trim()}</li>
+            <li key={index} className="text-white text-start  fs-4">{item.trim()}</li>
           ))}
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 // Import images 📷
 import SSlogo from '../assets/SSLogo_bTyC.png';
 import student from '../assets/student.png';
-
+import bOval from '../assets/bodyoval.png';
 
 const StudentSelectTeacher = ({ user, setUser, setLogged, selectedTeacherId, setSelectedTeacherId }) => {
 
@@ -16,7 +16,7 @@ const StudentSelectTeacher = ({ user, setUser, setLogged, selectedTeacherId, set
     const { id } = useParams();
 
 
-    //get all teaachers in db
+    //get all teachers in db
     useEffect(() => {
         axios.get('http://localhost:8000/teachers/findAll', { withCredentials: true })
             .then(res => {
@@ -32,31 +32,7 @@ const StudentSelectTeacher = ({ user, setUser, setLogged, selectedTeacherId, set
         console.log("selecteteacherid", selectedTeacherId)
         //navigate(`/Student/TeacherList/${selectedTeacherId}`)
         navigate('/Student/TeacherList')
-        
-        // axios.get(`http://localhost:8000/api/supplyList/getAllByTeacher/${selectedTeacherId}`)
-        //     .then(res => {
-        //         console.log("getAllByTeacher res.data", res.data)
-        //         setAllTeachers(res.data.teachers)
-        //     })
-        //     .catch(err => console.log(err))
     }
-
-
-        // axios.put(`http://localhost:8000/api/appt/${selectedPetId}`, apptObj, { withCredentials: true })
-        // axios.patch(`http://localhost:8000/api/appt/${selectedPetId}`, {...pet, appointments: [...pet.appointments, apptObj]}, {withCredentials: true })
-        // .then(res => {
-        //     console.log("made new appointment!")
-        //     window.location.reload(); // Refresh the page
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        //     const errorResponse = err.response.data;
-        //     const errorArr = [];
-        //     for (const key of Object.keys(errorResponse)) {
-        //         errorArr.push(errorResponse[key].message)
-        //     }
-        //     setErrors(errorArr);
-        // });
 
     const logoutHandler = (e) => {
         e.preventDefault();
@@ -69,51 +45,51 @@ const StudentSelectTeacher = ({ user, setUser, setLogged, selectedTeacherId, set
             })
             .catch(err => console.log('logoutHandler error', err));
     };
-    
-    const ChooseButton = (e) => { navigate("/StudentSelectTeacher") }
 
-return (
-    <div className="mx-auto col-8 m-5">
+    const homeButton = (e) => { navigate("/StudentSelectTeacher") }
 
-      {/* ------- HEADER ------- */}
-      <div className='row align-items-center'>
-        <div className='col'>
-          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={ChooseButton} src={SSlogo} />
-          <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
-        </div>
-        <div className="col text-end">
-          <img className='student' alt="Student Login and Registration" src={student} />
-        </div>
-      </div>{/* Header close */}
+    return (
+        <div className="mx-auto col-8 m-5">
 
-      {/* ------- MAIN -------*/}
-
-
-
-        {user && user.firstName ?
-            <h2 className="mt-4">Welcome, {user.firstName}!</h2>
-            :
-            <h2 className="mt-3 text-start">Find Teacher's Supply List:</h2>
-        }
-        <div className="col mx-auto bg-info p-3 m-4 rounded">
-            <form onSubmit={teacherHandler}>
-            {errors.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
-            
-                <div className="form-group">
-                    <label htmlFor="teacherSelect" className="fw-bolder">Select Teacher: </label>
-                    <select id="teacherSelect" value={selectedTeacherId} className="form-control" onChange={(e) => setSelectedTeacherId(e.target.value)}>
-                        <option value="">-- Select Teacher --</option>
-                        {allTeachers && allTeachers.map(teacher => (
-                            <option key={teacher._id} value={teacher._id}>
-                                {teacher.pronoun} {teacher.firstName} {teacher.lastName}
-                            </option>
-                        ))}
-                    </select>
+            {/* ------- HEADER ------- */}
+            <div className='row align-items-center'>
+                <div className='col-md-6'>
+                    <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={homeButton} src={SSlogo} />
                 </div>
-                <button className="btn btn-dark text-light d-flex mx-auto m-3 p-2">Submit</button>
-            </form>
+                <div className='col-md-6 text-md-end mt-3 mt-md-0'>
+                    <button className="btn btn-dark" onClick={logoutHandler}>Logout</button>
+                </div>
+            </div>
+            <div className="col text-end">
+                <img className='student' alt="Student Login and Registration" src={student} />
+            </div>
+            {/* ------- MAIN -------*/}
+
+            <div className="bodyOval" style={{ backgroundImage: `url(${bOval})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center" }}>
+                {user && user.firstName ?
+                    <h2 className="welcome">Welcome, {user.firstName}!</h2>
+                    :
+                    <h2 className="welcome">Find Teacher's Supply List:</h2>
+                }
+                <form className="bOvalForm" onSubmit={teacherHandler}>
+                    {errors.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
+
+                    <div className="form-group">
+                        <label htmlFor="teacherSelect" className="fw-bolder">Select Teacher: </label>
+                        <select id="teacherSelect" value={selectedTeacherId} className="form-control" onChange={(e) => setSelectedTeacherId(e.target.value)}>
+                            <option value="">-- Select Teacher --</option>
+                            {allTeachers && allTeachers.map(teacher => (
+                                <option key={teacher._id} value={teacher._id}>
+                                    {teacher.pronoun} {teacher.firstName} {teacher.lastName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <button className="btn btn-dark text-light d-flex mx-auto m-3 p-2">Submit</button>
+                </form>
+            </div>
+
         </div>
-    </div>
-)
+    )
 }
 export default StudentSelectTeacher;
