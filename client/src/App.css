@@ -99,8 +99,9 @@
 
 .regDiv {
   margin: auto;
-  height: 600px;
-  border: 2px solid rgb(226, 43, 180);
+  min-height: 600px;
+  min-width: 500px;
+  /* border: 2px solid rgb(226, 43, 180); */
 }
 
 .loginForm {
@@ -121,8 +122,9 @@
 .registerFormTeacher {
   padding-top: 100px;
   width: 50%;
-  margin-left: 130px;
-  margin-left: 110px;
+  margin: auto;
+  /* margin-left: 130px;
+  margin-left: 110px; */
   /* border: 2px solid blueviolet; */
 }
 
@@ -147,7 +149,7 @@ select {
   border-radius: 3px;
 }
 
-/* ---- StudentSelectTeacher ---- */
+/* ---- body ovals ---- */
 .bodyOval {
   margin: auto;
   height: 450px;
@@ -155,32 +157,38 @@ select {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgb(226, 43, 180);
+  /* border: 2px solid rgb(226, 43, 180); */
 }
 
 .bOvalForm {
   margin: auto;
   width: 40%;
-  border: 2px solid blueviolet;
+  /* border: 2px solid blueviolet; */
 }
 
 .bodyOvalList {
   margin: auto;
-  height: 500px;
+  height: 650px;
+  min-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 3%;
   /* justify-content: center; */
-  border: 2px solid rgb(226, 43, 180);
+  /* border: 2px solid rgb(226, 43, 180); */
 }
 
+/* @media (max-width: 767px) {
+  .bodyOvalList {
+    height: 100vh; 
+}
+} */
 
 .welcome {
   margin: auto;
   max-width: 400px;
   /* Set a specific maximum width */
   width: 80%;
-  padding-top: 10%;
-  border: 2px solid rgb(43, 226, 83);
+  padding-top: 2%;
+  /* border: 2px solid rgb(43, 226, 83); */
 }

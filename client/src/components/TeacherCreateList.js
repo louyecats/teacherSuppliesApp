@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import teacher from '../assets/teacher.png';
+import bOval from '../assets/bodyoval.png';
 
 const TeacherCreateList = ({ user, setUser, setLogged }) => {
 
@@ -81,13 +85,21 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
 
     return (
       <div className="mx-auto col-8 m-5">
-        <div className="row">
-          <h1 className="col text-start">School Supplies</h1>
-          <button className="col-2 btn btn-info" onClick={homeButton}>Home</button>
-          <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
+      {/* ------- HEADER ------- */}
+      <div className='row align-items-center'>
+        <div className='col-md-6'>
+          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={homeButton} src={SSlogo} />
         </div>
+        <div className='col-md-6 text-md-end mt-3 mt-md-0'>
+          <button className="btn btn-dark" onClick={logoutHandler}>Logout</button>
+        </div>
+      </div>
+      <div className="col text-end">
+        <img className='student' alt="Teacher Login and Registration" src={teacher} />
+      </div>
+      {/* ------- MAIN -------*/}
 
-        <div className="col mx-auto bg-info p-3 m-4 rounded">
+      <div className="bodyOvalList" style={{ backgroundImage: `url(${bOval})`, backgroundRepeat: "no-repeat", backgroundSize: "100% 100%", backgroundPosition: "center" }}>
           <form className="col rounded p-2" onSubmit={onSubmitHandler}>
           {errors.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
             <div className="">
@@ -97,7 +109,7 @@ const TeacherCreateList = ({ user, setUser, setLogged }) => {
 
             <div className="form-group">
               <label htmlFor="SupplyListItems" className="fs-4 mt-2">Supply Items:</label><br />
-              <textarea type="text" id="SupplyListItems" name="SupplyListItems" rows="15" cols="70" value={supplyList.SupplyListItems} className="form-control" onChange={onChangeHandler}>
+              <textarea type="text" id="SupplyListItems" name="SupplyListItems" rows="11" cols="30" value={supplyList.SupplyListItems} className="form-control" onChange={onChangeHandler}>
               </textarea>
             </div>
 

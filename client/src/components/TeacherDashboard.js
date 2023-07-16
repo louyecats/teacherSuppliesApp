@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import teacher from '../assets/teacher.png';
+import bOval from '../assets/bodyoval.png';
+
 const TeacherDashboard = ({ user, setUser, setLogged }) => {
 
   const navigate = useNavigate();
@@ -59,30 +64,43 @@ const TeacherDashboard = ({ user, setUser, setLogged }) => {
 
   const createList = (e) => { navigate("/TeacherCreateList") }
 
+  const homeButton = (e) => { navigate("/TeacherDashboard") }
+
   return (
     <div className="mx-auto m-5 col-8">
-      <div className="row">
-        <h1 className="col text-start">School Supplies</h1>
-        <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
-      </div>
 
-      <div className="table mx-auto text-dark mx-auto bg-info col-8 m-5 p-3 rounded">
+      {/* ------- HEADER ------- */}
+      <div className='row align-items-center'>
+        <div className='col-md-6'>
+          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={homeButton} src={SSlogo} />
+        </div>
+        <div className='col-md-6 text-md-end mt-3 mt-md-0'>
+          <button className="btn btn-dark" onClick={logoutHandler}>Logout</button>
+        </div>
+      </div>
+      <div className="col text-end">
+        <img className='student' alt="Teacher Login and Registration" src={teacher} />
+      </div>
+      {/* ------- MAIN -------*/}
+
+      <div className="bodyOval" style={{ backgroundImage: `url(${bOval})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundPosition: "center" }}>
         <h2 className="mt-2">{user.pronoun} {user.firstName}'s' Supply Lists:</h2>
-          <div className="mt-4">
+        <div className="mt-4">
           {state.map((supplyList) => {
             return (
               <ul className="list-group" key={supplyList._id}>
 
-                  <li className="list-group-item">
-                    <Link to={`/supplyList/readOne/${supplyList._id}`} className="link-light fs-4"> {supplyList.SupplyListName} </Link>
-                  </li>
+                <li className="list-group-item">
+                  <Link to={`/supplyList/readOne/${supplyList._id}`} className="link-dark fs-4"> {supplyList.SupplyListName} </Link>
+                </li>
               </ul>
             )
           })}
+          <button className="btn btn-dark text-light d-flex mx-auto mt-3 p-3" onClick={createList} >Create New List</button>
         </div>
 
       </div>
-      <button className="btn btn-dark text-light d-flex mx-auto mt-3 p-3" onClick={createList} >Create New List</button>
+
 
     </div>
   )

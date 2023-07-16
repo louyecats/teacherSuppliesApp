@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import teacher from '../assets/teacher.png';
+import bOval from '../assets/bodyoval.png';
+
 const TeacherEditList = ({ user, setUser, setLogged }) => {
 
   const { id } = useParams();
@@ -82,7 +87,6 @@ const TeacherEditList = ({ user, setUser, setLogged }) => {
       .catch(err => console.log("deleteList error", err))
     navigate("/")
   }
-  const homeButton = (e) => { navigate("/TeacherDashboard") }
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -96,22 +100,32 @@ const TeacherEditList = ({ user, setUser, setLogged }) => {
       .catch(err => console.log('logoutHandler error', err));
   };
 
+  const homeButton = (e) => { navigate("/TeacherDashboard") }
+
   return (
     <div className="mx-auto col-8 m-5">
-      <div className="row">
-        <h1 className="col text-start">School Supplies</h1>
-        <button className="col-2 btn btn-info" onClick={homeButton}>Home</button>
-        <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
+      {/* ------- HEADER ------- */}
+      <div className='row align-items-center'>
+        <div className='col-md-6'>
+          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={homeButton} src={SSlogo} />
+        </div>
+        <div className='col-md-6 text-md-end mt-3 mt-md-0'>
+          <button className="btn btn-dark" onClick={logoutHandler}>Logout</button>
+        </div>
       </div>
+      <div className="col text-end">
+        <img className='student' alt="Teacher Login and Registration" src={teacher} />
+      </div>
+      {/* ------- MAIN -------*/}
 
-      <div className="col mx-auto bg-info p-3 m-4 rounded">
+      <div className="bodyOvalList" style={{ backgroundImage: `url(${bOval})`, backgroundRepeat: "no-repeat", backgroundSize: "95% 100%", backgroundPosition: "center" }}>
         {user && user.firstName ?
-          <h2 className="mt-3 text-start">{user.firstName}'s List:</h2>
+          <h2 className="text-start">{user.firstName}'s List:</h2>
           :
           ""
         }
         <div>
-          <form className="col rounded p-2" onSubmit={submitHandler}>
+          <form className="col rounded" onSubmit={submitHandler}>
 
             {errors.map((err, index) => <p className="text-danger" key={index}>{err}</p>)}
 
@@ -124,11 +138,11 @@ const TeacherEditList = ({ user, setUser, setLogged }) => {
             </div>
             <div>
               <label className="fs-4 mt-2">Items: </label><br />
-              <textarea type="text" id="SupplyListItems" name="SupplyListItems" rows="15" cols="70" value={supplyList.SupplyListItems} className="form-control" onChange={changeHandler}>
+              <textarea type="text" id="SupplyListItems" name="SupplyListItems" rows="10" cols="30" value={supplyList.SupplyListItems} className="form-control" onChange={changeHandler}>
               </textarea>
             </div>
 
-            <button className="btn btn-light mt-3 me-2">Submit</button>
+            <button className="btn btn-dark mt-3 me-2">Submit</button>
 
             <button className="btn btn-danger mt-3" onClick={(e) => {
               const confirmDelete = window.confirm(
