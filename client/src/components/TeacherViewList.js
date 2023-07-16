@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 
+// Import images 📷
+import SSlogo from '../assets/SSLogo_bTyC.png';
+import teacher from '../assets/teacher.png';
+import bOval from '../assets/bodyoval.png';
+
 const TeacherViewList = ({ user, setUser, setLogged }) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -62,7 +67,7 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
       .catch(err => console.log('logoutHandler error', err));
   };
 
-  const homeButton = (e) => { navigate("/TeacherDashboard") }
+
 
   const deleteList = (e) => {
     axios.delete(`http://localhost:8000/api/supplyList/delete/${id}`, { withCredentials: true })
@@ -71,37 +76,49 @@ const TeacherViewList = ({ user, setUser, setLogged }) => {
     navigate("/")
   }
 
+  const homeButton = (e) => { navigate("/TeacherDashboard") }
+
   return (
     <div className="mx-auto col-8 m-5">
-      <div className="row">
-        <h1 className="col text-start">School Supplies</h1>
-        <button className="col-2 btn btn-info" onClick={homeButton}>Home</button>
-        <button className="col-2 btn btn-dark" onClick={logoutHandler}>Logout</button>
-      </div>
 
-      <div className="col mx-auto bg-info p-3 m-4 rounded">
+      {/* ------- HEADER ------- */}
+      <div className='row align-items-center'>
+        <div className='col-md-6'>
+          <img className="img-fluid SSlogo-image" alt="School Supplies Logo Home button" onClick={homeButton} src={SSlogo} />
+        </div>
+        <div className='col-md-6 text-md-end mt-3 mt-md-0'>
+          <button className="btn btn-dark" onClick={logoutHandler}>Logout</button>
+        </div>
+      </div>
+      <div className="col text-end">
+        <img className='student' alt="Teacher Login and Registration" src={teacher} />
+      </div>
+      {/* ------- MAIN -------*/}
+
+      <div className="bodyOvalList" style={{ backgroundImage: `url(${bOval})`, backgroundRepeat: "no-repeat", backgroundSize: "100% 100%", backgroundPosition: "center" }}>
         {user && user.firstName ?
-          <h2 className="mt-3 text-start">{user.firstName}'s {supplyList.SupplyListName} List:</h2>
+          <h2 className="mt-5 text-start">{user.firstName}'s {supplyList.SupplyListName} List:</h2>
           :
           ""
         }
         <div>
           {/* orig SupplyListItems.replace(",", "<ul>") - but, replace only replaces the first occurrence of the comma in SupplyListItems string. For multiple items separated by commas, use split and map (c/o chatGPT) */}
           {supplyList.SupplyListItems.split(",").map((item, index) => (
-            <li key={index} className="text-white text-start offset-1 fs-4">{item.trim()}</li>
+            <li key={index} className=" fs-4">{item.trim()}</li>
           ))}
+        </div>
+        <div className=" mx-auto p-5 m-4 rounded">
+          <Link to={"/TeacherEditList/" + supplyList._id} className="btn btn-dark">Edit List</Link>
+          <button className="btn btn-danger" onClick={(e) => {
+            const confirmDelete = window.confirm(
+              "Delete List?"
+            )
+            if (confirmDelete === true) { deleteList(id) }
+          }}>Delete</button>
         </div>
       </div>
 
-      <div className="col mx-auto bg-info p-3 m-4 rounded">
-        <Link to={"/TeacherEditList/" + supplyList._id} className="btn btn-light">Edit List</Link>
-        <button className="btn btn-danger" onClick={(e) => {
-          const confirmDelete = window.confirm(
-            "Delete List?"
-          )
-          if (confirmDelete === true) { deleteList(id) }
-        }}>Delete</button>
-      </div>
+
     </div>
   )
 }

@@ -73,21 +73,21 @@ const StudentSelectList = ({ user, setUser, setLogged, selectedTeacherId, select
                     <h2 className="mt-3 text-start">Find Teacher's Supply List:</h2>
                 }
 
-                    <form onSubmit={listHandler}>
-                        <div className="form-group">
-                            <label htmlFor="teacherSelect" className="fw-bolder">Select List: </label>
-                            <select id="teacherSelect" value={selectedListId} className="form-control" onChange={(e) => setSelectedListId(e.target.value)}>
-                                <option value="">-- Select List --</option>
-                                {teacherLists && teacherLists.map(list => (
-                                    <option key={list._id} value={list._id}>
-                                        {list.SupplyListName}
-                                    </option>
-                                ))}
+                <form onSubmit={listHandler}>
+                    <div className="form-group">
+                        <label htmlFor="teacherSelect" className="fw-bolder">Select List: </label>
+                        <select id="teacherSelect" value={selectedListId} className="form-control" onChange={(e) => setSelectedListId(e.target.value)}>
+                            <option value="">-- Select List --</option>
+                            {teacherLists && teacherLists.map(list => (
+                                <option key={list._id} value={list._id}>
+                                    {list.SupplyListName}
+                                </option>
+                            ))}
 
-                            </select>
-                        </div>
-                        <button className="btn btn-dark text-light d-flex mx-auto m-3 p-2">Submit</button>
-                    </form>
+                        </select>
+                    </div>
+                    <button className="btn btn-dark text-light d-flex mx-auto m-3 p-2">Submit</button>
+                </form>
 
             </div>
         </div>
